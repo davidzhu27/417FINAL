@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class HazardCollision : MonoBehaviour
+public class GoalZone : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player hit hazard");
+            Debug.Log("Player hit goal zone");
         }
     }
 }
