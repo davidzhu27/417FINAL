@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Hazard
+  - Ground
+  - Car NPCs
   layers:
   - Default
   - TransparentFX
