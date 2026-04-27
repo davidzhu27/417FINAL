@@ -3402,6 +3402,9 @@ MonoBehaviour:
   hornDistance: 4
   hitDistance: 1.5
   soundManager: {fileID: 1830228245}
+  carMover: {fileID: 2032774925}
+  fallDuration: 0.25
+  stayDownDuration: 0.8
 --- !u!65 &2032774927
 BoxCollider:
   m_ObjectHideFlags: 0

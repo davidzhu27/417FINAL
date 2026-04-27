@@ -10,9 +10,27 @@ public class CarHazard : MonoBehaviour
     public float hitDistance = 1.5f;
 
     public SoundManager soundManager;
+    public CarMover carMover;
+
+    public float fallDuration = 0.25f;
+    public float stayDownDuration = 0.8f;
 
     private bool hornPlayed = false;
     private bool recentlyHit = false;
+    private Quaternion playerOriginalRotation;
+
+    void Start()
+    {
+        if (player != null)
+        {
+            playerOriginalRotation = player.rotation;
+        }
+
+        if (carMover == null)
+        {
+            carMover = GetComponent<CarMover>();
+        }
+    }
 
     void Update()
     {
@@ -50,23 +68,56 @@ public class CarHazard : MonoBehaviour
 
         Debug.Log("Player was hit by car!");
 
+        if (carMover != null)
+        {
+            carMover.StopCar();
+        }
+
         if (soundManager != null)
         {
             soundManager.PlayCrashAndOuch();
         }
-        else
+
+        Vector3 startPosition = player.position;
+        Quaternion startRotation = player.rotation;
+
+        // 倒地：让 player 往侧面旋转 90 度，同时稍微降低一点高度
+        Quaternion fallenRotation = Quaternion.Euler(
+            startRotation.eulerAngles.x,
+            startRotation.eulerAngles.y,
+            startRotation.eulerAngles.z + 90f
+        );
+
+        Vector3 fallenPosition = startPosition + new Vector3(0f, -0.7f, 0f);
+
+        float elapsed = 0f;
+
+        while (elapsed < fallDuration)
         {
-            Debug.LogWarning("SoundManager is missing on CarHazard.");
+            elapsed += Time.deltaTime;
+            float t = elapsed / fallDuration;
+
+            player.rotation = Quaternion.Lerp(startRotation, fallenRotation, t);
+            player.position = Vector3.Lerp(startPosition, fallenPosition, t);
+
+            yield return null;
         }
 
-        yield return new WaitForSeconds(0.2f);
+        player.rotation = fallenRotation;
+        player.position = fallenPosition;
 
-        if (player != null && playerStartPoint != null)
+        yield return new WaitForSeconds(stayDownDuration);
+
+        // Reset player back to sidewalk
+        player.position = playerStartPoint.position;
+        player.rotation = playerOriginalRotation;
+
+        if (carMover != null)
         {
-            player.position = playerStartPoint.position;
+            carMover.StartCar();
         }
 
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.3f);
         recentlyHit = false;
     }
 }
