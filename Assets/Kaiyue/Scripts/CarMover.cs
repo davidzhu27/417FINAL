@@ -5,6 +5,7 @@ public class CarMover : MonoBehaviour
     public Transform startPoint;
     public Transform endPoint;
     public float speed = 3f;
+    public bool isStopped = false;
 
     private Vector3 target;
 
@@ -23,6 +24,11 @@ public class CarMover : MonoBehaviour
 
     void Update()
     {
+        if (isStopped)
+        {
+            return;
+        }
+
         if (startPoint == null || endPoint == null)
         {
             return;
@@ -39,5 +45,15 @@ public class CarMover : MonoBehaviour
             transform.position = startPoint.position;
             target = endPoint.position;
         }
+    }
+
+    public void StopCar()
+    {
+        isStopped = true;
+    }
+
+    public void StartCar()
+    {
+        isStopped = false;
     }
 }
