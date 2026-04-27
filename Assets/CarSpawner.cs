@@ -5,8 +5,8 @@ public class CarSpawner : MonoBehaviour
 {
     [SerializeField] private string desired_move_direction;
     [SerializeField] private float spawn_interval = 5.0f;
-    [SerializeField] private GameObject[] car_prefabs;
     [SerializeField] private float car_lifetime = 4.0f;
+    [SerializeField] private GameObject[] car_prefabs;
     private Vector3 start_pos;
     private Quaternion init_rot;
     private float acc_time = 0.0f;

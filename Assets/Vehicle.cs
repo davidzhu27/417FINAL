@@ -14,7 +14,7 @@ public class Vehicle : NPC {
         lifetime = obj_lifetime;
     }
     public override void animateNPC() {
-        if (alive_time >= lifetime) Destroy(transform.parent.gameObject);
+        if (alive_time >= lifetime && moving) Destroy(transform.parent.gameObject);
         if(moving) {
             frontLeftW.transform.Rotate(rotation_speed*Time.deltaTime,0,0);
             backLeftW.transform.Rotate(rotation_speed*Time.deltaTime,0,0);
