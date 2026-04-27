@@ -11,6 +11,7 @@ public class CrossingTimer : MonoBehaviour
     public Transform playerStartPoint;
 
     private float currentTime;
+    private bool isRunning = false;
     private bool isResetting = false;
     private bool isPaused = false;
 
@@ -21,12 +22,12 @@ public class CrossingTimer : MonoBehaviour
             messageText.gameObject.SetActive(false);
         }
 
-        ResetTimer();
+        ResetTimerToReady();
     }
 
     void Update()
     {
-        if (isResetting || isPaused)
+        if (!isRunning || isResetting || isPaused)
         {
             return;
         }
@@ -44,9 +45,50 @@ public class CrossingTimer : MonoBehaviour
         }
     }
 
+    public void StartTimer()
+    {
+        if (isRunning || isResetting)
+        {
+            return;
+        }
+
+        currentTime = timeLimit;
+        isRunning = true;
+        isPaused = false;
+
+        if (timerText != null)
+        {
+            timerText.text = "Time: " + Mathf.Ceil(currentTime).ToString();
+        }
+    }
+
+    public void StopTimer()
+    {
+        isRunning = false;
+        isPaused = false;
+
+        if (timerText != null)
+        {
+            timerText.text = "Ready";
+        }
+    }
+
+    public void ResetTimerToReady()
+    {
+        currentTime = timeLimit;
+        isRunning = false;
+        isPaused = false;
+
+        if (timerText != null)
+        {
+            timerText.text = "Ready";
+        }
+    }
+
     IEnumerator TimeUpReset()
     {
         isResetting = true;
+        isRunning = false;
 
         if (messageText != null)
         {
@@ -74,7 +116,7 @@ public class CrossingTimer : MonoBehaviour
             messageText.rectTransform.anchoredPosition = Vector2.zero;
         }
 
-        ResetTimer();
+        ResetTimerToReady();
         isResetting = false;
     }
 
@@ -123,23 +165,19 @@ public class CrossingTimer : MonoBehaviour
         messageText.transform.localScale = Vector3.one;
     }
 
-    public void ResetTimer()
-    {
-        currentTime = timeLimit;
-
-        if (timerText != null)
-        {
-            timerText.text = "Time: " + Mathf.Ceil(currentTime).ToString();
-        }
-    }
-
     public void PauseTimer()
     {
-        isPaused = true;
+        if (isRunning)
+        {
+            isPaused = true;
+        }
     }
 
     public void ResumeTimer()
     {
-        isPaused = false;
+        if (isRunning)
+        {
+            isPaused = false;
+        }
     }
 }

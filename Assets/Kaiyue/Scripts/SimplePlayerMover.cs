@@ -5,8 +5,20 @@ public class SimplePlayerMover : MonoBehaviour
 {
     public float moveSpeed = 4f;
     public float mouseSensitivity = 0.12f;
+    public Transform cameraTransform;
 
-    private float rotationY = 0f;
+    private float yaw = 0f;
+    private float pitch = 0f;
+
+    void Start()
+    {
+        if (cameraTransform == null && Camera.main != null)
+        {
+            cameraTransform = Camera.main.transform;
+        }
+
+        yaw = transform.eulerAngles.y;
+    }
 
     void Update()
     {
@@ -22,9 +34,19 @@ public class SimplePlayerMover : MonoBehaviour
 
         if (Mouse.current != null)
         {
-            float mouseX = Mouse.current.delta.ReadValue().x * mouseSensitivity;
-            rotationY += mouseX;
-            transform.rotation = Quaternion.Euler(0f, rotationY, 0f);
+            Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+
+            yaw += mouseDelta.x * mouseSensitivity;
+            pitch -= mouseDelta.y * mouseSensitivity;
+
+            pitch = Mathf.Clamp(pitch, -80f, 80f);
+
+            transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+
+            if (cameraTransform != null)
+            {
+                cameraTransform.localRotation = Quaternion.Euler(pitch, 0f, 0f);
+            }
         }
 
         transform.position += move * moveSpeed * Time.deltaTime;
