@@ -4,7 +4,7 @@ using System.Collections;
 
 public class CrossingTimer : MonoBehaviour
 {
-    public float timeLimit = 3f;
+    public float timeLimit = 5f;
     public TMP_Text timerText;
     public TMP_Text messageText;
     public Transform player;
