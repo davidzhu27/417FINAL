@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip carHornClip;
     public AudioClip crashClip;
     public AudioClip ouchClip;
+    public AudioClip crosswalkTimerClip;
 
     public void PlayHorn()
     {
@@ -17,6 +18,30 @@ public class SoundManager : MonoBehaviour
     {
         PlayClip(crashClip);
         PlayClip(ouchClip);
+    }
+
+    public void PlayCrosswalkTimer()
+    {
+        if (audioSource != null && crosswalkTimerClip != null)
+        {
+            audioSource.clip = crosswalkTimerClip;
+            audioSource.loop = true;
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("Missing audio source or crosswalk timer clip.");
+        }
+    }
+
+    public void StopCrosswalkTimer()
+    {
+        if (audioSource != null && audioSource.clip == crosswalkTimerClip)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+            audioSource.loop = false;
+        }
     }
 
     private void PlayClip(AudioClip clip)

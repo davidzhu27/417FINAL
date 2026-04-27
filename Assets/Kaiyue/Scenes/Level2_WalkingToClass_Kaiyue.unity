@@ -2071,6 +2071,7 @@ MonoBehaviour:
   carMover: {fileID: 2032774925}
   crossingTimer: {fileID: 82838156}
   messageText: {fileID: 1667284078}
+  soundManager: {fileID: 1830228245}
   stopDuration: 3
 --- !u!135 &1355744281
 SphereCollider:
@@ -3303,6 +3304,7 @@ MonoBehaviour:
   carHornClip: {fileID: 8300000, guid: 749fa861c5544428c9117ab6d9028d7b, type: 3}
   crashClip: {fileID: 8300000, guid: 65a0decd205904f4b9f243be6617e7af, type: 3}
   ouchClip: {fileID: 8300000, guid: 26c0200a734e54a90b5ce940997eb2d1, type: 3}
+  crosswalkTimerClip: {fileID: 8300000, guid: e6cc86d0d559245fd84e06426bee2b18, type: 3}
 --- !u!1001 &1996309220
 PrefabInstance:
   m_ObjectHideFlags: 0

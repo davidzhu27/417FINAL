@@ -8,6 +8,7 @@ public class CrosswalkButtonTrigger : MonoBehaviour
     public CarMover carMover;
     public CrossingTimer crossingTimer;
     public TMP_Text messageText;
+    public SoundManager soundManager;
     public float stopDuration = 3f;
 
     private bool isActive = false;
@@ -48,18 +49,15 @@ public class CrosswalkButtonTrigger : MonoBehaviour
         {
             carMover.StopCar();
         }
-        else
-        {
-            Debug.LogWarning("CarMover is missing on CrosswalkButtonTrigger.");
-        }
 
         if (crossingTimer != null)
         {
             crossingTimer.PauseTimer();
         }
-        else
+
+        if (soundManager != null)
         {
-            Debug.LogWarning("CrossingTimer is missing on CrosswalkButtonTrigger.");
+            soundManager.PlayCrosswalkTimer();
         }
 
         if (messageText != null)
@@ -69,12 +67,13 @@ public class CrosswalkButtonTrigger : MonoBehaviour
             messageText.fontSize = 72;
             messageText.gameObject.SetActive(true);
         }
-        else
-        {
-            Debug.LogWarning("MessageText is missing on CrosswalkButtonTrigger.");
-        }
 
         yield return new WaitForSeconds(stopDuration);
+
+        if (soundManager != null)
+        {
+            soundManager.StopCrosswalkTimer();
+        }
 
         if (messageText != null)
         {
