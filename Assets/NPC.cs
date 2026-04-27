@@ -27,7 +27,7 @@ public abstract class NPC : MonoBehaviour
     public void basicPathFollowing() {
         animateNPC();
         if (moving) {
-            if (moving_direction == "x") {
+            if (moving_direction[^1] == 'x') {
                 transform.position = new Vector3(transform.position.x+(move_sign*move_speed*Time.deltaTime), transform.position.y, transform.position.z);  
             } else {
                 transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z+(move_sign*move_speed*Time.deltaTime));

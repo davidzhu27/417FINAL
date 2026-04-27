@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 8497558566868875672}
   m_Layer: 0
   m_Name: NPC OldSedan
-  m_TagString: Untagged
+  m_TagString: Car NPCs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

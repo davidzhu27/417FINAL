@@ -8,6 +8,7 @@ public class Vehicle : NPC {
     [SerializeField] private float rotation_speed = 60.0f;
     public void setup(string moving_dir) {
         moving_direction = moving_dir;
+        if (moving_dir[0] == '-') move_sign = -1.0f;
     }
     public override void animateNPC() {
         if(moving) {
@@ -17,6 +18,12 @@ public class Vehicle : NPC {
             backRightW.transform.Rotate(rotation_speed*Time.deltaTime,0,0);
         }
  
+    }
+    public void stop() {
+        moving = false;
+    }
+    public void start_moving() {
+        moving = true;
     }
     public void OnCollisionEnter(Collision collision) {
         if (!collision.gameObject.CompareTag("Ground") && collision.gameObject.name.ToLower() != "floor") moving = false;

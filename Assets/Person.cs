@@ -9,12 +9,6 @@ public class Person : NPC {
     protected override void Awake() {
         moving = false;
         move_speed = 1.0f;
-        CapsuleCollider collider =  gameObject.AddComponent<CapsuleCollider>();
-        //average character dimentions
-        collider.center = new Vector3(0f, 0.8f, 0f);
-        collider.radius = 0.3f;
-        collider.height = 1.77f;
-        collider.direction = 1;
     }
     public void setup(bool set_taking_test) {
         taking_test = set_taking_test;
@@ -70,7 +64,7 @@ public class Person : NPC {
                     move_sign = 1.0f;
                     transform.Rotate(0, 90.0f-transform.eulerAngles.y, 0);
                 } else if (rand_num % 4 == 2) {
-                    moving_direction = "x";
+                    moving_direction = "-x";
                     move_sign = -1.0f;
                     transform.Rotate(0, 270.0f-transform.eulerAngles.y, 0);
                 } else if (rand_num % 4 == 1) {

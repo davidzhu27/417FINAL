@@ -746,8 +746,8 @@ MonoBehaviour:
   Values:
   - {fileID: 305907771613938612}
   - {fileID: -758587482631002040}
-  - {fileID: 2050621091704151829}
-  - {fileID: 8633794706558927658}
+  - {fileID: 8222278361812751510}
+  - {fileID: 7291297071011331360}
 --- !u!114 &245655632936618302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1325,6 +1325,52 @@ MonoBehaviour:
   targetOpenXRApiVersion: 
   required: 0
   customRuntimeLoaderName: 
+--- !u!114 &7291297071011331360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a1f07dc5afe854f9f12a4194aca3fb, type: 3}
+  m_Name: Metro
+  m_EditorClassIdentifier: Unity.XR.OpenXR::UnityEngine.XR.OpenXR.OpenXRSettings
+  features:
+  - {fileID: -4814074844505363250}
+  - {fileID: 8733405085162262837}
+  - {fileID: 923549295332159083}
+  - {fileID: 1555699061618774672}
+  - {fileID: -1099469643397885835}
+  - {fileID: -3394229328593862460}
+  - {fileID: -7581074949500004588}
+  - {fileID: 6830552909914072161}
+  - {fileID: 8693966633689719141}
+  - {fileID: -5380357996370619205}
+  - {fileID: -91512952543515131}
+  - {fileID: 6391114422999072746}
+  - {fileID: -3443673646387221688}
+  - {fileID: 4725365193403051104}
+  - {fileID: -2621395223628907744}
+  - {fileID: -4188561307032546131}
+  - {fileID: 947780057566291115}
+  - {fileID: -1536289686902756919}
+  customLoaderName: 
+  m_renderMode: 1
+  m_latencyOptimization: 0
+  m_autoColorSubmissionMode: 1
+  m_colorSubmissionModes:
+    m_List: 00000000
+  m_depthSubmissionMode: 0
+  m_spacewarpMotionVectorTextureFormat: 0
+  m_optimizeBufferDiscards: 0
+  m_symmetricProjection: 0
+  m_optimizeMultiviewRenderRegions: 0
+  m_multiviewRenderRegionsOptimizationMode: 0
+  m_hasMigratedMultiviewRenderRegionSetting: 1
+  m_foveatedRenderingApi: 0
+  m_useOpenXRPredictedTime: 0
 --- !u!114 &7765650908307195408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1382,6 +1428,53 @@ MonoBehaviour:
   extensionStrings:
   - XR_KHR_binding_modification
   - XR_EXT_dpad_binding
+--- !u!114 &8222278361812751510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5a1f07dc5afe854f9f12a4194aca3fb, type: 3}
+  m_Name: Android
+  m_EditorClassIdentifier: Unity.XR.OpenXR::UnityEngine.XR.OpenXR.OpenXRSettings
+  features:
+  - {fileID: 5845012172282750538}
+  - {fileID: -7560079458964805362}
+  - {fileID: 8269665194105308613}
+  - {fileID: 6130153693639367917}
+  - {fileID: -6015801924771014775}
+  - {fileID: 1969554858752635870}
+  - {fileID: -2744704553331345907}
+  - {fileID: 7765650908307195408}
+  - {fileID: -1999252746229628886}
+  - {fileID: -6651067585115861030}
+  - {fileID: 245655632936618302}
+  - {fileID: -6757098996807530696}
+  - {fileID: -3685233870938701363}
+  - {fileID: 882191568007109108}
+  - {fileID: -3346103886614706442}
+  - {fileID: -5565953738769628372}
+  - {fileID: -435947454989244227}
+  - {fileID: -8713982729444204806}
+  - {fileID: 1589927063815985850}
+  customLoaderName: 
+  m_renderMode: 1
+  m_latencyOptimization: 0
+  m_autoColorSubmissionMode: 1
+  m_colorSubmissionModes:
+    m_List: 00000000
+  m_depthSubmissionMode: 0
+  m_spacewarpMotionVectorTextureFormat: 0
+  m_optimizeBufferDiscards: 0
+  m_symmetricProjection: 0
+  m_optimizeMultiviewRenderRegions: 0
+  m_multiviewRenderRegionsOptimizationMode: 0
+  m_hasMigratedMultiviewRenderRegionSetting: 1
+  m_foveatedRenderingApi: 0
+  m_useOpenXRPredictedTime: 0
 --- !u!114 &8269665194105308613
 MonoBehaviour:
   m_ObjectHideFlags: 0
