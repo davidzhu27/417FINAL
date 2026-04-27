@@ -12,6 +12,7 @@ public class CrossingTimer : MonoBehaviour
 
     private float currentTime;
     private bool isResetting = false;
+    private bool isPaused = false;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class CrossingTimer : MonoBehaviour
 
     void Update()
     {
-        if (isResetting)
+        if (isResetting || isPaused)
         {
             return;
         }
@@ -50,7 +51,7 @@ public class CrossingTimer : MonoBehaviour
         if (messageText != null)
         {
             messageText.text = "Too slow!\nTry again!";
-            messageText.color = new Color(1f, 0.35f, 0.05f); // bright orange
+            messageText.color = new Color(1f, 0.35f, 0.05f);
             messageText.fontSize = 64;
             messageText.gameObject.SetActive(true);
 
@@ -98,19 +99,16 @@ public class CrossingTimer : MonoBehaviour
 
             if (t < 0.3f)
             {
-                // Pop onto screen
                 float popT = t / 0.3f;
                 messageText.transform.localScale = Vector3.Lerp(smallScale, bigScale, popT);
             }
             else if (t < 0.5f)
             {
-                // Settle back slightly
                 float settleT = (t - 0.3f) / 0.2f;
                 messageText.transform.localScale = Vector3.Lerp(bigScale, normalScale, settleT);
             }
             else
             {
-                // Small bouncy jump
                 float bounce = Mathf.Abs(Mathf.Sin((t - 0.5f) * Mathf.PI * 5f));
                 rect.anchoredPosition = originalPosition + new Vector2(0f, bounce * 25f);
 
@@ -133,5 +131,15 @@ public class CrossingTimer : MonoBehaviour
         {
             timerText.text = "Time: " + Mathf.Ceil(currentTime).ToString();
         }
+    }
+
+    public void PauseTimer()
+    {
+        isPaused = true;
+    }
+
+    public void ResumeTimer()
+    {
+        isPaused = false;
     }
 }

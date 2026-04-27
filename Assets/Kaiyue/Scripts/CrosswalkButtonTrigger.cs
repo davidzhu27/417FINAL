@@ -6,6 +6,7 @@ using System.Collections;
 public class CrosswalkButtonTrigger : MonoBehaviour
 {
     public CarMover carMover;
+    public CrossingTimer crossingTimer;
     public TMP_Text messageText;
     public float stopDuration = 3f;
 
@@ -52,6 +53,15 @@ public class CrosswalkButtonTrigger : MonoBehaviour
             Debug.LogWarning("CarMover is missing on CrosswalkButtonTrigger.");
         }
 
+        if (crossingTimer != null)
+        {
+            crossingTimer.PauseTimer();
+        }
+        else
+        {
+            Debug.LogWarning("CrossingTimer is missing on CrosswalkButtonTrigger.");
+        }
+
         if (messageText != null)
         {
             messageText.text = "WALK!";
@@ -74,6 +84,11 @@ public class CrosswalkButtonTrigger : MonoBehaviour
         if (carMover != null)
         {
             carMover.StartCar();
+        }
+
+        if (crossingTimer != null)
+        {
+            crossingTimer.ResumeTimer();
         }
 
         isActive = false;

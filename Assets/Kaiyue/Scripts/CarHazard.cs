@@ -9,11 +9,7 @@ public class CarHazard : MonoBehaviour
     public float hornDistance = 4f;
     public float hitDistance = 1.5f;
 
-    public AudioClip hornClip;
-    public AudioClip crashClip;
-    public AudioClip ouchClip;
-
-    public float soundVolume = 1f;
+    public SoundManager soundManager;
 
     private bool hornPlayed = false;
     private bool recentlyHit = false;
@@ -29,14 +25,9 @@ public class CarHazard : MonoBehaviour
 
         if (distance < hornDistance && !hornPlayed)
         {
-            if (hornClip != null)
+            if (soundManager != null)
             {
-                AudioSource.PlayClipAtPoint(hornClip, Camera.main.transform.position, soundVolume);
-                Debug.Log("Horn sound played");
-            }
-            else
-            {
-                Debug.LogWarning("Horn clip is missing!");
+                soundManager.PlayHorn();
             }
 
             hornPlayed = true;
@@ -59,24 +50,13 @@ public class CarHazard : MonoBehaviour
 
         Debug.Log("Player was hit by car!");
 
-        if (crashClip != null)
+        if (soundManager != null)
         {
-            AudioSource.PlayClipAtPoint(crashClip, Camera.main.transform.position, soundVolume);
-            Debug.Log("Crash sound played");
+            soundManager.PlayCrashAndOuch();
         }
         else
         {
-            Debug.LogWarning("Crash clip is missing!");
-        }
-
-        if (ouchClip != null)
-        {
-            AudioSource.PlayClipAtPoint(ouchClip, Camera.main.transform.position, soundVolume);
-            Debug.Log("Ouch sound played");
-        }
-        else
-        {
-            Debug.LogWarning("Ouch clip is missing!");
+            Debug.LogWarning("SoundManager is missing on CarHazard.");
         }
 
         yield return new WaitForSeconds(0.2f);

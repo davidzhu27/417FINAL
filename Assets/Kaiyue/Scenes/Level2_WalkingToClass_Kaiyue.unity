@@ -2069,6 +2069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrosswalkButtonTrigger
   carMover: {fileID: 2032774925}
+  crossingTimer: {fileID: 82838156}
   messageText: {fileID: 1667284078}
   stopDuration: 3
 --- !u!135 &1355744281
@@ -2972,6 +2973,7 @@ GameObject:
   - component: {fileID: 1830228243}
   - component: {fileID: 1830228242}
   - component: {fileID: 1830228241}
+  - component: {fileID: 1830228245}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -3285,6 +3287,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1830228245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830228240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d808dd334f5b46b4b4500619aaf93d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
+  audioSource: {fileID: 1830228243}
+  carHornClip: {fileID: 8300000, guid: 749fa861c5544428c9117ab6d9028d7b, type: 3}
+  crashClip: {fileID: 8300000, guid: 65a0decd205904f4b9f243be6617e7af, type: 3}
+  ouchClip: {fileID: 8300000, guid: 26c0200a734e54a90b5ce940997eb2d1, type: 3}
 --- !u!1001 &1996309220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3379,14 +3397,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3c22b2f7f53c4090b2e19319a17bb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarHazard
-  player: {fileID: 0}
+  player: {fileID: 454185388}
   playerStartPoint: {fileID: 1525933584}
   hornDistance: 4
   hitDistance: 1.5
-  hornClip: {fileID: 8300000, guid: 749fa861c5544428c9117ab6d9028d7b, type: 3}
-  crashClip: {fileID: 8300000, guid: 65a0decd205904f4b9f243be6617e7af, type: 3}
-  ouchClip: {fileID: 8300000, guid: 26c0200a734e54a90b5ce940997eb2d1, type: 3}
-  soundVolume: 1
+  soundManager: {fileID: 1830228245}
 --- !u!65 &2032774927
 BoxCollider:
   m_ObjectHideFlags: 0
