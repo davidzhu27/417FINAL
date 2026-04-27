@@ -6,6 +6,7 @@ public class CarSpawner : MonoBehaviour
     [SerializeField] private string desired_move_direction;
     [SerializeField] private float spawn_interval = 5.0f;
     [SerializeField] private GameObject[] car_prefabs;
+    [SerializeField] private float car_lifetime = 4.0f;
     private Vector3 start_pos;
     private Quaternion init_rot;
     private float acc_time = 0.0f;
@@ -31,7 +32,7 @@ public class CarSpawner : MonoBehaviour
         int ind = Random.Range(0, car_prefabs.Length);
         GameObject car = Instantiate(car_prefabs[ind], start_pos, init_rot);
         Vehicle veh = car.GetComponentInChildren<Vehicle>();
-        veh.setup(desired_move_direction);
+        veh.setup(desired_move_direction, car_lifetime);
     }
 
     // Update is called once per frame
@@ -43,7 +44,7 @@ public class CarSpawner : MonoBehaviour
             int ind = Random.Range(0, car_prefabs.Length);
             GameObject car = Instantiate(car_prefabs[ind], start_pos, init_rot);
             Vehicle veh = car.GetComponentInChildren<Vehicle>();
-            veh.setup(desired_move_direction);
+            veh.setup(desired_move_direction, car_lifetime);
         }
     }
 }

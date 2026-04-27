@@ -716,6 +716,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3033260476972541020, guid: 22de0021681993544836ff77ad2293e0, type: 3}
+      propertyPath: desired_move_direction
+      value: -z
+      objectReference: {fileID: 0}
     - target: {fileID: 5821980784086221388, guid: 22de0021681993544836ff77ad2293e0, type: 3}
       propertyPath: m_Name
       value: Car Spawner
