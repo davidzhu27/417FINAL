@@ -467,6 +467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Person
   animator: {fileID: 5845577704737448946}
+  person_type: 0
 --- !u!95 &5845577704737448946
 Animator:
   serializedVersion: 7
@@ -477,7 +478,7 @@ Animator:
   m_GameObject: {fileID: 4335513175479721753}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 50c8fe73844fb0a42bdb72b9873224e6, type: 3}
-  m_Controller: {fileID: 9100000, guid: 60d80be4b40a9d74d9966a295fe25ab8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 835188a9484db4642a4b8709d5b09ed6, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
