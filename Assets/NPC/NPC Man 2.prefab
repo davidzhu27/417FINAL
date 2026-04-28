@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Person
   animator: {fileID: 145674655761269382}
+  person_type: 0
 --- !u!136 &7772576429167180635
 CapsuleCollider:
   m_ObjectHideFlags: 0

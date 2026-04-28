@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Person
   animator: {fileID: 5070148406477649008}
+  person_type: 0
 --- !u!1 &493597723991989189
 GameObject:
   m_ObjectHideFlags: 0
