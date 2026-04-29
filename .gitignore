@@ -71,3 +71,6 @@ ArtifactDB/
 **/.DS_Store
 
 .plastic
+
+.vscode/
+.utmp/
