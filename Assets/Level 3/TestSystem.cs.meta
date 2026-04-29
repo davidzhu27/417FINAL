@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: cbe125e1bde566942a1b6f22084902d9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - examData: {fileID: 11400000, guid: 37c45bdc4508c7a40993f8cacc2a30c9, type: 2}
+  - questionText: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
