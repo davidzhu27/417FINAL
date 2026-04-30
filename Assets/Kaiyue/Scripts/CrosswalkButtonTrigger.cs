@@ -49,6 +49,8 @@ public class CrosswalkButtonTrigger : MonoBehaviour
         {
             carMover.StopCar();
         }
+        
+        EventManager.Instance.stopCars.Invoke();
 
         if (crossingTimer != null)
         {
@@ -84,7 +86,7 @@ public class CrosswalkButtonTrigger : MonoBehaviour
         {
             carMover.StartCar();
         }
-
+        EventManager.Instance.startCars.Invoke();
         if (crossingTimer != null)
         {
             crossingTimer.ResumeTimer();

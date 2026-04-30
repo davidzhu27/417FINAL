@@ -159,6 +159,7 @@ public class CrossingTimer : MonoBehaviour
             messageText.transform.localScale = Vector3.one;
             messageText.rectTransform.anchoredPosition = Vector2.zero;
         }
+        EventManager.Instance.startCars.Invoke();
 
         ResetTimerHidden();
     }
