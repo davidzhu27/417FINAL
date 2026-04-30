@@ -870,6 +870,7 @@ GameObject:
   - component: {fileID: 498552846}
   - component: {fileID: 498552845}
   - component: {fileID: 498552844}
+  - component: {fileID: 498552849}
   m_Layer: 0
   m_Name: GoalZone
   m_TagString: Untagged
@@ -892,7 +893,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -905,7 +906,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498552843}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -964,12 +965,39 @@ Transform:
   m_GameObject: {fileID: 498552843}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.69386, y: 0, z: -4.25922}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 9.55, y: 0, z: -5.15}
+  m_LocalScale: {x: 1, y: 1, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &498552849
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 498552843}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &556541119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2220,6 +2248,7 @@ GameObject:
   - component: {fileID: 1259401643}
   - component: {fileID: 1259401642}
   - component: {fileID: 1259401641}
+  - component: {fileID: 1259401646}
   m_Layer: 0
   m_Name: CrossingTimerZone
   m_TagString: Untagged
@@ -2327,12 +2356,39 @@ Transform:
   m_GameObject: {fileID: 1259401640}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.76, y: 0.34983, z: -5.18}
-  m_LocalScale: {x: 2, y: 1, z: 6}
+  m_LocalPosition: {x: -3.3, y: 0.5, z: 6}
+  m_LocalScale: {x: 0.5, y: 1, z: 820}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1259401646
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259401640}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1301277737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3043,6 +3099,8 @@ MonoBehaviour:
   holdPoint: {fileID: 1734740272}
   messageText: {fileID: 1667284078}
   soundManager: {fileID: 1830228245}
+  crossingTimer: {fileID: 82838156}
+  timerZone: {fileID: 1259401641}
   pickupDistance: 5
   throwDistance: 2.5
   fallDuration: 0.25
@@ -3089,7 +3147,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -4371,6 +4429,8 @@ MonoBehaviour:
   hitDistance: 1.5
   soundManager: {fileID: 1830228245}
   carMover: {fileID: 2032774925}
+  crossingTimer: {fileID: 82838156}
+  timerZone: {fileID: 1259401641}
   fallDuration: 0.25
   stayDownDuration: 0.8
 --- !u!65 &2032774927
