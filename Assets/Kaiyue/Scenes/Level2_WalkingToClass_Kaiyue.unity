@@ -1669,56 +1669,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5d47d656169f264a8c470c164175281, type: 3}
---- !u!1 &718160563
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 718160565}
-  - component: {fileID: 718160564}
-  m_Layer: 0
-  m_Name: EventManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &718160564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718160563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efad7fe83ecdfa4f9ba8a4c9cc8608d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EventManager
-  stopCars:
-    m_PersistentCalls:
-      m_Calls: []
-  startCars:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!4 &718160565
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718160563}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.68815, y: -0, z: -20.81643}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &844542801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3101,6 +3051,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car Spawner (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5821980784086221388, guid: 22de0021681993544836ff77ad2293e0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8026923343322793906, guid: 22de0021681993544836ff77ad2293e0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.1116445
@@ -3260,6 +3214,56 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc010488c79022e489f975537f336766, type: 3}
+--- !u!1 &1461496055
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1461496057}
+  - component: {fileID: 1461496056}
+  m_Layer: 0
+  m_Name: event manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1461496056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461496055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efad7fe83ecdfa4f9ba8a4c9cc8608d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventManager
+  stopCars:
+    m_PersistentCalls:
+      m_Calls: []
+  startCars:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1461496057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461496055}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.2539, y: 0, z: 4.08787}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1525933583
 GameObject:
   m_ObjectHideFlags: 0
@@ -5258,4 +5262,4 @@ SceneRoots:
   - {fileID: 1070541302}
   - {fileID: 1417481243}
   - {fileID: 15300011}
-  - {fileID: 718160565}
+  - {fileID: 1461496057}
