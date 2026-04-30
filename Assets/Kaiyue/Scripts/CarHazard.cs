@@ -10,7 +10,7 @@ public class CarHazard : MonoBehaviour
     public float hitDistance = 1.5f;
 
     public SoundManager soundManager;
-    public CarMover carMover;
+    public Vehicle vehicle;
 
     public CrossingTimer crossingTimer;
     public CrossingTimerZone timerZone;
@@ -29,10 +29,18 @@ public class CarHazard : MonoBehaviour
             playerOriginalRotation = player.rotation;
         }
 
-        if (carMover == null)
+        if (vehicle == null)
         {
-            carMover = GetComponent<CarMover>();
+            vehicle = GetComponent<Vehicle>();
         }
+    }
+    public void Setup(Transform n_player, Transform n_playerStartPoint, SoundManager s_manager, CrossingTimer ct, CrossingTimerZone tz) {
+        player = n_player;
+        playerStartPoint = n_playerStartPoint;
+        soundManager = s_manager;
+        crossingTimer = ct;
+        timerZone = tz;
+        playerOriginalRotation = player.rotation;
     }
 
     void Update()
@@ -71,9 +79,9 @@ public class CarHazard : MonoBehaviour
 
         Debug.Log("Player was hit by car!");
 
-        if (carMover != null)
+        if (vehicle != null)
         {
-            carMover.StopCar();
+            vehicle.StopCar();
         }
 
         if (soundManager != null)
@@ -125,12 +133,17 @@ public class CarHazard : MonoBehaviour
             timerZone.ResetZone();
         }
 
-        if (carMover != null)
-        {
-            carMover.StartCar();
+        GameObject[] all_cars = GameObject.FindGameObjectsWithTag("Car NPCs");
+        for (int i = 0; i < all_cars.Length; i++) {
+            Destroy(all_cars[i]);
         }
+        EventManager.Instance.startCars.Invoke();
+        // if (vehicle != null)
+        // {
+        //     vehicle.StartCar();
+        // }
 
-        yield return new WaitForSeconds(0.3f);
-        recentlyHit = false;
+        // yield return new WaitForSeconds(0.3f);
+        // recentlyHit = false;
     }
 }

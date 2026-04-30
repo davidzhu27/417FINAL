@@ -7,12 +7,21 @@ public class CarSpawner : MonoBehaviour
     [SerializeField] private float spawn_interval = 5.0f;
     [SerializeField] private float car_lifetime = 4.0f;
     [SerializeField] private GameObject[] car_prefabs;
+    public Transform player;
+    public Transform playerStartPoint;
+    public SoundManager soundManager;
+    public CrossingTimer crossingTimer;
+    public CrossingTimerZone timerZone;
+
     private Vector3 start_pos;
     private Quaternion init_rot;
     private float acc_time = 0.0f;
+    private bool crosswalk_enabled = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        EventManager.Instance.startCars.AddListener(crosswalkDisabled);
+        EventManager.Instance.stopCars.AddListener(crosswalkEnabled);
         Vector3 offset;
         if (desired_move_direction == "-x") {
             offset = new Vector3(-0.5f,0.0f,0.0f);
@@ -31,20 +40,29 @@ public class CarSpawner : MonoBehaviour
         start_pos.y = 0.0f;
         int ind = Random.Range(0, car_prefabs.Length);
         GameObject car = Instantiate(car_prefabs[ind], start_pos, init_rot);
+        Debug.Log(start_pos.z);
         Vehicle veh = car.GetComponentInChildren<Vehicle>();
         veh.setup(desired_move_direction, car_lifetime);
+        veh.carHazard.Setup(player, playerStartPoint, soundManager, crossingTimer, timerZone);
     }
 
     // Update is called once per frame
     void Update()
     {
         if (acc_time < spawn_interval) acc_time+=Time.deltaTime;
-        else {
+        else if (!crosswalk_enabled) {
             acc_time = 0.0f;
             int ind = Random.Range(0, car_prefabs.Length);
             GameObject car = Instantiate(car_prefabs[ind], start_pos, init_rot);
             Vehicle veh = car.GetComponentInChildren<Vehicle>();
             veh.setup(desired_move_direction, car_lifetime);
+            veh.carHazard.Setup(player, playerStartPoint, soundManager, crossingTimer, timerZone);
         }
+    }
+    public void crosswalkEnabled() {
+        crosswalk_enabled = true;
+    }
+    public void crosswalkDisabled() {
+        crosswalk_enabled = false;
     }
 }
