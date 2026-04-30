@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 8586005974587256736}
   - component: {fileID: 5818809493229166466}
   - component: {fileID: 5765603777602053401}
+  - component: {fileID: 177198908597517938}
   m_Layer: 0
   m_Name: Truck
   m_TagString: Untagged
@@ -469,6 +470,8 @@ MonoBehaviour:
   frontRightW: {fileID: 8395921032901402282}
   backRightW: {fileID: 2926828632295976590}
   rotation_speed: 60
+  lifetime: 5
+  carHazard: {fileID: 177198908597517938}
 --- !u!54 &5765603777602053401
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -491,11 +494,33 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &177198908597517938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4447836344236633814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3c22b2f7f53c4090b2e19319a17bb42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarHazard
+  player: {fileID: 0}
+  playerStartPoint: {fileID: 0}
+  hornDistance: 4
+  hitDistance: 1.5
+  soundManager: {fileID: 0}
+  vehicle: {fileID: 0}
+  crossingTimer: {fileID: 0}
+  timerZone: {fileID: 0}
+  fallDuration: 0.25
+  stayDownDuration: 0.8
 --- !u!1 &4866451820185399193
 GameObject:
   m_ObjectHideFlags: 0
