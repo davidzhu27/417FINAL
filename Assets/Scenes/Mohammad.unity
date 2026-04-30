@@ -53875,6 +53875,7 @@ GameObject:
   - component: {fileID: 1358398597}
   - component: {fileID: 1358398598}
   - component: {fileID: 1358398599}
+  - component: {fileID: 1358398600}
   m_Layer: 0
   m_Name: Hand Menu Controller
   m_TagString: Untagged
@@ -53980,8 +53981,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7bfef983ef7aa43a9852a30dcd9a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuController
+  attemptManager: {fileID: 1358398600}
   resetButton: {fileID: 2128675388}
   quitButton: {fileID: 2130815910}
+--- !u!114 &1358398600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358398596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352e161ddafba6c478f40347dc4c8124, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttemptManager
+  attemptDisplay: {fileID: 1120409569}
+  prefix: 'Attempts: '
+  saveKey: TotalPlayerAttempts
 --- !u!1 &1360850602
 GameObject:
   m_ObjectHideFlags: 0
@@ -55737,6 +55754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
   pauseMenuUI: {fileID: 1431232161}
+  attemptManager: {fileID: 0}
 --- !u!4 &1397777156
 Transform:
   m_ObjectHideFlags: 0

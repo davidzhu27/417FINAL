@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+    [Header("References")]
+    public AttemptManager attemptManager;
+
     [Header("UI Button Slots")]
     [SerializeField] private Button resetButton;
     [SerializeField] private Button quitButton;
@@ -31,6 +34,11 @@ public class MenuController : MonoBehaviour
     public void ResetPlayer()
     {
         Time.timeScale = 1f;
+        if (attemptManager != null)
+        {
+            attemptManager.AddAttempt();
+        }
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
