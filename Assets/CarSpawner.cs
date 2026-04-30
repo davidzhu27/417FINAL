@@ -20,6 +20,10 @@ public class CarSpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (EventManager.Instance == null)
+        {
+            EventManager.Instance = FindFirstObjectByType<EventManager>();
+        }
         EventManager.Instance.startCars.AddListener(crosswalkDisabled);
         EventManager.Instance.stopCars.AddListener(crosswalkEnabled);
         Vector3 offset;
