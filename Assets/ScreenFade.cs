@@ -18,6 +18,16 @@ public class ScreenFade : MonoBehaviour
         FadeToColor(new Color(1f, 0.3f, 0f, 0.6f), 2.0f);
     }
 
+    public void FadeToRedFast()
+    {
+        FadeToColor(new Color(1f, 0.3f, 0f, 0.6f), 0.2f);
+    }
+
+    public void FadeToGreen()
+    {
+        FadeToColor(new Color(0.2f, 1f, 0.2f, 0.5f), 2.0f);
+    }
+
     public void FadeToColor(Color color, float duration)
     {
         StartCoroutine(FadeRoutine(color, duration));
