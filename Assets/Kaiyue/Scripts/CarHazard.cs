@@ -12,6 +12,9 @@ public class CarHazard : MonoBehaviour
     public SoundManager soundManager;
     public CarMover carMover;
 
+    public CrossingTimer crossingTimer;
+    public CrossingTimerZone timerZone;
+
     public float fallDuration = 0.25f;
     public float stayDownDuration = 0.8f;
 
@@ -81,7 +84,6 @@ public class CarHazard : MonoBehaviour
         Vector3 startPosition = player.position;
         Quaternion startRotation = player.rotation;
 
-        // 倒地：让 player 往侧面旋转 90 度，同时稍微降低一点高度
         Quaternion fallenRotation = Quaternion.Euler(
             startRotation.eulerAngles.x,
             startRotation.eulerAngles.y,
@@ -111,6 +113,17 @@ public class CarHazard : MonoBehaviour
         // Reset player back to sidewalk
         player.position = playerStartPoint.position;
         player.rotation = playerOriginalRotation;
+
+        // Reset timer so it hides again and can restart when player enters StartTimerZone
+        if (crossingTimer != null)
+        {
+            crossingTimer.ResetTimerHidden();
+        }
+
+        if (timerZone != null)
+        {
+            timerZone.ResetZone();
+        }
 
         if (carMover != null)
         {
