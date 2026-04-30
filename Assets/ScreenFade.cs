@@ -10,6 +10,7 @@ public class ScreenFade : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        DontDestroyOnLoad(gameObject); // 👈 add this
     }
 
     public void FadeToRed()

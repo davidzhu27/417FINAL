@@ -8,9 +8,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CarTest.unity
     guid: 5751807bcb4451d40bd8f991775edf17
+  - enabled: 1
+    path: Assets/Scenes/DeathCutScenes.unity
+    guid: 3db2428335adde44e9f0cae8855c41e9
+  - enabled: 1
+    path: Assets/Scenes/Mohammad.unity
+    guid: ea9f7d3d038e62449814afa9727f1863
+  - enabled: 1
+    path: Assets/Kaiyue/Scenes/Level2_WalkingToClass_Kaiyue.unity
+    guid: 06329491b717846708d92f745cfcb937
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 89bd69a5fb246a04ab470e048167ff67, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
