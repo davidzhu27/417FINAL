@@ -3,11 +3,11 @@ using System.Collections.Generic;
 public class PlayerTracking : MonoBehaviour
 {
     [SerializeField] Transform cameraTransform;
-    [SerializeField] float max_turn_amount = 90.0f;
+    [SerializeField] float max_turn_amount = 120.0f;
     [SerializeField] Teacher teacher;
     private Quaternion prev_rotation;
     private float total_degs_turned = 0.0f;
-    private float time_window_size = 2.0f;
+    private float time_window_size = 1.0f;
     private struct AngleRotated {
         public float time_measured;
         public float angle_rotated;

@@ -11,18 +11,20 @@ public class Teacher : MonoBehaviour
     private int cur_ind;
     private int moving_dir; //moving_dir=0 -> +z, 1->-z, 2->+x,3->-x
     private int[] moving_dir_loop = new int[] {0,3,1,3,0,2,1,2};
-    private float move_speed = 2.0f;
+    private float move_speed = 1.0f;
     private float move_sign = 1.0f;
     private bool reached_initial_waypoint = false;
     private bool reached_player = false;
     private bool executed = false;
     private Vector3 initial_location;
+    public Animator animator;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         initial_location = transform.position;
         initial_waypoint = new Vector3(12.0f, 0.0f, -8.0f);
         agent.SetDestination(initial_waypoint);
+        animator.SetTrigger("WalkTrigger");
     }
 
     // Update is called once per frame
@@ -44,6 +46,7 @@ public class Teacher : MonoBehaviour
                 agent.updatePosition = false;
                 cur_ind = 0;
                 moving_dir = moving_dir_loop[cur_ind];
+                transform.Rotate(0.0f, 0.0f-transform.eulerAngles.y, 0.0f);
             }
         } else {
             if (Vector3.Distance(transform.position, current_waypoint) < 1.0f) {
@@ -82,7 +85,9 @@ public class Teacher : MonoBehaviour
     }
 
     public void SetExecuteStudent() {
+        agent.nextPosition = transform.position;
         killStudent = true;
+        animator.SetTrigger("StudentTrigger");
     }
     public void ExecuteStudent() {
         executed = true;
