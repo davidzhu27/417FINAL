@@ -11,6 +11,10 @@ public class InventoryManager : MonoBehaviour
     [Header("Backpack")]
     public InventoryItemData[] backpackSlots = new InventoryItemData[10];
 
+    [Header("Selection")]
+    public int selectedHotSwapIndex = 0;
+    public int selectedBackpackIndex = 0;
+
     public event Action OnInventoryChanged;
 
     private void Awake()
@@ -28,7 +32,6 @@ public class InventoryManager : MonoBehaviour
     {
         if (itemData == null) return false;
 
-        // First try to put item into hotswap.
         for (int i = 0; i < hotSwapSlots.Length; i++)
         {
             if (hotSwapSlots[i] == null)
@@ -40,7 +43,6 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
-        // If hotswap is full, try backpack.
         int startIndex = FindBackpackSpace(itemData.slotSize);
 
         if (startIndex == -1)
@@ -74,28 +76,73 @@ public class InventoryManager : MonoBehaviour
                 }
             }
 
-            if (hasSpace)
-            {
-                return i;
-            }
+            if (hasSpace) return i;
         }
 
         return -1;
     }
 
-    public void MoveBackpackItemToHotSwap(int backpackIndex, int hotSwapIndex)
+    public void SelectNextHotSwapSlot()
     {
-        if (backpackIndex < 0 || backpackIndex >= backpackSlots.Length) return;
-        if (hotSwapIndex < 0 || hotSwapIndex >= hotSwapSlots.Length) return;
+        selectedHotSwapIndex++;
 
-        InventoryItemData item = backpackSlots[backpackIndex];
-        if (item == null) return;
+        if (selectedHotSwapIndex >= hotSwapSlots.Length)
+        {
+            selectedHotSwapIndex = 0;
+        }
 
-        hotSwapSlots[hotSwapIndex] = item;
-        ClearBackpackItem(item);
-
-        Debug.Log($"Moved {item.itemName} to hotswap slot {hotSwapIndex}");
+        Debug.Log("Selected hotswap slot " + selectedHotSwapIndex);
         OnInventoryChanged?.Invoke();
+    }
+
+    public void SelectNextBackpackSlot()
+    {
+        selectedBackpackIndex++;
+
+        if (selectedBackpackIndex >= backpackSlots.Length)
+        {
+            selectedBackpackIndex = 0;
+        }
+
+        Debug.Log("Selected backpack slot " + selectedBackpackIndex);
+        OnInventoryChanged?.Invoke();
+    }
+
+    public InventoryItemData GetSelectedHotSwapItem()
+    {
+        if (selectedHotSwapIndex < 0 || selectedHotSwapIndex >= hotSwapSlots.Length) return null;
+        return hotSwapSlots[selectedHotSwapIndex];
+    }
+
+    public InventoryItemData GetSelectedBackpackItem()
+    {
+        if (selectedBackpackIndex < 0 || selectedBackpackIndex >= backpackSlots.Length) return null;
+        return backpackSlots[selectedBackpackIndex];
+    }
+
+    public void SwapSelectedBackpackAndHotSwap()
+    {
+        if (selectedHotSwapIndex < 0 || selectedHotSwapIndex >= hotSwapSlots.Length) return;
+        if (selectedBackpackIndex < 0 || selectedBackpackIndex >= backpackSlots.Length) return;
+
+        InventoryItemData hotItem = hotSwapSlots[selectedHotSwapIndex];
+        InventoryItemData bagItem = backpackSlots[selectedBackpackIndex];
+
+        hotSwapSlots[selectedHotSwapIndex] = bagItem;
+        backpackSlots[selectedBackpackIndex] = hotItem;
+
+        Debug.Log($"Swapped hotswap slot {selectedHotSwapIndex} with backpack slot {selectedBackpackIndex}");
+        OnInventoryChanged?.Invoke();
+    }
+
+    public void DropSelectedHotSwapItem(Vector3 dropPosition, Quaternion dropRotation)
+    {
+        DropHotSwapItem(selectedHotSwapIndex, dropPosition, dropRotation);
+    }
+
+    public void DropSelectedBackpackItem(Vector3 dropPosition, Quaternion dropRotation)
+    {
+        DropBackpackItem(selectedBackpackIndex, dropPosition, dropRotation);
     }
 
     public void DropHotSwapItem(int hotSwapIndex, Vector3 dropPosition, Quaternion dropRotation)
@@ -103,24 +150,50 @@ public class InventoryManager : MonoBehaviour
         if (hotSwapIndex < 0 || hotSwapIndex >= hotSwapSlots.Length) return;
 
         InventoryItemData item = hotSwapSlots[hotSwapIndex];
-        if (item == null || item.worldPrefab == null) return;
+
+        if (item == null)
+        {
+            Debug.Log("No hotswap item selected to drop.");
+            return;
+        }
+
+        if (item.worldPrefab == null)
+        {
+            Debug.LogWarning(item.itemName + " has no worldPrefab assigned.");
+            return;
+        }
 
         Instantiate(item.worldPrefab, dropPosition, dropRotation);
 
         hotSwapSlots[hotSwapIndex] = null;
 
-        Debug.Log($"Dropped {item.itemName} back into the world.");
+        Debug.Log($"Dropped {item.itemName} from hotswap into the world.");
         OnInventoryChanged?.Invoke();
     }
 
-    private void ClearBackpackItem(InventoryItemData item)
+    public void DropBackpackItem(int backpackIndex, Vector3 dropPosition, Quaternion dropRotation)
     {
-        for (int i = 0; i < backpackSlots.Length; i++)
+        if (backpackIndex < 0 || backpackIndex >= backpackSlots.Length) return;
+
+        InventoryItemData item = backpackSlots[backpackIndex];
+
+        if (item == null)
         {
-            if (backpackSlots[i] == item)
-            {
-                backpackSlots[i] = null;
-            }
+            Debug.Log("No backpack item selected to drop.");
+            return;
         }
+
+        if (item.worldPrefab == null)
+        {
+            Debug.LogWarning(item.itemName + " has no worldPrefab assigned.");
+            return;
+        }
+
+        Instantiate(item.worldPrefab, dropPosition, dropRotation);
+
+        backpackSlots[backpackIndex] = null;
+
+        Debug.Log($"Dropped {item.itemName} from backpack into the world.");
+        OnInventoryChanged?.Invoke();
     }
 }
