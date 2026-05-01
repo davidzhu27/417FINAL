@@ -13,62 +13,6 @@ public class Person : NPC {
         moving = false;
         move_speed = 1.0f;
     }
-
-    public void FacePlayer(Camera playerCamera)
-    {
-        if (playerCamera == null) return;
-        FacePlayer(playerCamera.transform);
-    }
-
-    public void FacePlayer(Transform target)
-    {
-        if (target == null) return;
-
-        Vector3 toTarget = target.position - transform.position;
-        toTarget.y = 0f; // yaw only
-        if (toTarget.sqrMagnitude < 0.0001f) return;
-
-        transform.rotation = Quaternion.LookRotation(toTarget.normalized, Vector3.up);
-    }
-
-    public override void Update()
-    {
-        if (basic_path)
-        {
-            animateNPC();
-
-            if (person_type == 99)
-            {
-                // Lock to Y-axis rotation only (no X/Z tilt) and disable horizontal translation.
-                var euler = transform.eulerAngles;
-                transform.rotation = Quaternion.Euler(0f, euler.y, 0f);
-                return;
-            }
-
-            if (!moving) return;
-
-            if (moving_direction == "x" || moving_direction == "-x")
-            {
-                transform.position = new Vector3(
-                    transform.position.x + (move_sign * move_speed * Time.deltaTime),
-                    transform.position.y,
-                    transform.position.z
-                );
-            }
-            else
-            {
-                transform.position = new Vector3(
-                    transform.position.x,
-                    transform.position.y,
-                    transform.position.z + (move_sign * move_speed * Time.deltaTime)
-                );
-            }
-        }
-        else
-        {
-            // Non-basic paths not implemented here.
-        }
-    }
     public void setup(string npc_type) {
         if (npc_type.Equals("indoor", StringComparison.OrdinalIgnoreCase)) person_type = 1;
         else if (npc_type.Equals("test_taker", StringComparison.OrdinalIgnoreCase)) person_type = 2;
@@ -150,37 +94,24 @@ public class Person : NPC {
                 timeForMotion = Random.Range(4.0f, 8.0f);
                 acc_time = 0.0f;
                 moving = true;
-                if (person_type == 0) {
-                    int z_dir = Random.Range(0, 2);
+                if (rand_num == 0) {
+                    moving_direction = "x";
+                    move_sign = 1.0f;
+                    transform.Rotate(0, 90.0f-transform.eulerAngles.y, 0);
+                } else if (rand_num == 2) {
+                    moving_direction = "-x";
+                    move_sign = -1.0f;
+                    transform.Rotate(0, 270.0f-transform.eulerAngles.y, 0);
+                } else if (rand_num == 1) {
                     moving_direction = "z";
-                    if (z_dir == 0) {
-                        move_sign = 1.0f;
-                        transform.Rotate(0, 0.0f - transform.eulerAngles.y, 0);
-                    } else {
-                        move_sign = -1.0f;
-                        transform.Rotate(0, 180.0f - transform.eulerAngles.y, 0);
-                    }
-                    Walk(z_dir);
+                    move_sign = 1.0f;
+                    transform.Rotate(0, 0.0f-transform.eulerAngles.y, 0);
                 } else {
-                    if (rand_num == 0) {
-                        moving_direction = "x";
-                        move_sign = 1.0f;
-                        transform.Rotate(0, 90.0f-transform.eulerAngles.y, 0);
-                    } else if (rand_num == 2) {
-                        moving_direction = "-x";
-                        move_sign = -1.0f;
-                        transform.Rotate(0, 270.0f-transform.eulerAngles.y, 0);
-                    } else if (rand_num == 1) {
-                        moving_direction = "z";
-                        move_sign = 1.0f;
-                        transform.Rotate(0, 0.0f-transform.eulerAngles.y, 0);
-                    } else {
-                        moving_direction = "z";
-                        move_sign = -1.0f;
-                        transform.Rotate(0, 180.0f-transform.eulerAngles.y, 0);
-                    }
-                    Walk(rand_num);
+                    moving_direction = "z";
+                    move_sign = -1.0f;
+                    transform.Rotate(0, 180.0f-transform.eulerAngles.y, 0);
                 }
+                Walk(rand_num);
                 
             }
         }

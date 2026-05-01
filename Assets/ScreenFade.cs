@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class ScreenFade : MonoBehaviour
@@ -7,11 +8,31 @@ public class ScreenFade : MonoBehaviour
     public static ScreenFade Instance;
     public Image fadeImage;
 
+    private Coroutine currentFade;
+
     void Awake()
     {
-        Instance = this;
-        DontDestroyOnLoad(gameObject); // 👈 add this
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            // 👇 listen for scene load
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
+    // 👇 automatically fade IN after new scene loads
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FadeIn(1.5f); // adjust duration as you like
+    }
+
+    // ===================== PRESET COLORS =====================
 
     public void FadeToRed()
     {
@@ -28,19 +49,29 @@ public class ScreenFade : MonoBehaviour
         FadeToColor(new Color(0.2f, 1f, 0.2f, 0.5f), 2.0f);
     }
 
+    // ===================== CORE FUNCTIONS =====================
+
     public void FadeToColor(Color color, float duration)
     {
-        StartCoroutine(FadeRoutine(color, duration));
+        StartFade(color, duration);
     }
 
     public void FadeOut(float duration)
     {
-        FadeToColor(Color.black, duration);
+        StartFade(Color.black, duration);
     }
 
     public void FadeIn(float duration)
     {
-        StartCoroutine(FadeRoutine(new Color(0,0,0,0), duration));
+        StartFade(new Color(0, 0, 0, 0), duration);
+    }
+
+    void StartFade(Color targetColor, float duration)
+    {
+        if (currentFade != null)
+            StopCoroutine(currentFade);
+
+        currentFade = StartCoroutine(FadeRoutine(targetColor, duration));
     }
 
     IEnumerator FadeRoutine(Color targetColor, float duration)
@@ -54,5 +85,7 @@ public class ScreenFade : MonoBehaviour
             fadeImage.color = Color.Lerp(startColor, targetColor, t / duration);
             yield return null;
         }
+
+        fadeImage.color = targetColor;
     }
 }
