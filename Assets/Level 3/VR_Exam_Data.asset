@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d212e907ac5d4bf40a012b98dcb305e7, type: 3}
+  m_Name: VR_Exam_Data
+  m_EditorClassIdentifier: Assembly-CSharp::ExamData
+  questions:
+  - question: Why does Oculus recommend against traditional HUDs in VR games?
+    answers:
+    - Traditional HUDs are too resource intensive for stereoscopic VR headsets
+    - HUDs block peripheral vision, leading to less situational awareness
+    - HUD occlusion interferes with binocular disparity depth cues
+    - HUDs cannot be rendered in stereoscopic 3D and will always appear flat
+    correct_answer: HUD occlusion interferes with binocular disparity depth cues
+  - question: Vection is often described as a major contributor to simulator sickness.
+      Define vection.
+    answers:
+    - Physical sensation of dizziness caused by rapid head movements in VR
+    - Mismatch between refresh rate of display and rendering frame rate
+    - Illusory perception of self-motion caused only by visual input
+    - Eye strain due to accomodation-convergence conflict in stereoscopic display
+    correct_answer: Illusory perception of self-motion caused only by visual input
+  - question: Why are instantaneous accelerations preferred over gradual ones in
+      VR?
+    answers:
+    - Instantaneous accelerations are below the human perception threshold, so users
+      will not see them
+    - Any period of acceleration creates sensory conflict between vision and vestibular
+      systems, so a shorter duration reduces conflict
+    - Gradual accelerations cause the vestibular-occular reflex to malfunction, while
+      instantaneous ones do not
+    - Instantaneous accelerations allows the game engine's predictive tracking to
+      compensate effects more effectively
+    correct_answer: Any period of acceleration creates sensory conflict between vision
+      and vestibular systems, so a shorter duration reduces conflict
