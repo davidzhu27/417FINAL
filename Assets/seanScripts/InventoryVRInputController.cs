@@ -10,10 +10,10 @@ public class InventoryVRInputController : MonoBehaviour
     [Header("Left Hand Inputs")]
     public InputActionReference leftPrimaryAction;
     public InputActionReference leftSecondaryAction;
-    public InputActionReference leftTriggerAction;
 
     [Header("Right Hand Inputs")]
     public InputActionReference rightTriggerAction;
+    public InputActionReference rightSecondaryAction; // New: use this for swapping
 
     [Header("Drop Settings")]
     public float dropHoldTime = 0.8f;
@@ -25,8 +25,8 @@ public class InventoryVRInputController : MonoBehaviour
     {
         EnableAction(leftPrimaryAction);
         EnableAction(leftSecondaryAction);
-        EnableAction(leftTriggerAction);
         EnableAction(rightTriggerAction);
+        EnableAction(rightSecondaryAction);
     }
 
     private void Update()
@@ -35,7 +35,7 @@ public class InventoryVRInputController : MonoBehaviour
 
         HandleLeftSecondary();
         HandleLeftPrimary();
-        HandleLeftTrigger();
+        HandleRightSecondarySwap();
         HandleRightTriggerDrop();
     }
 
@@ -55,11 +55,6 @@ public class InventoryVRInputController : MonoBehaviour
     private bool WasReleasedThisFrame(InputActionReference actionRef)
     {
         return actionRef != null && actionRef.action.WasReleasedThisFrame();
-    }
-
-    private bool IsPressed(InputActionReference actionRef)
-    {
-        return actionRef != null && actionRef.action.IsPressed();
     }
 
     private void HandleLeftSecondary()
@@ -90,9 +85,9 @@ public class InventoryVRInputController : MonoBehaviour
         }
     }
 
-    private void HandleLeftTrigger()
+    private void HandleRightSecondarySwap()
     {
-        if (WasPressedThisFrame(leftTriggerAction))
+        if (WasPressedThisFrame(rightSecondaryAction))
         {
             bool bagOpen = modalController != null && modalController.IsBackpackOpen;
 
