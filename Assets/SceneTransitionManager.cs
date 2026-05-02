@@ -6,34 +6,77 @@ public class SceneTransitionManager : MonoBehaviour
 {
     public static SceneTransitionManager Instance;
 
+    public GameObject levelCompleteText;
+
+    private bool isTransitioning = false;
+
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void TransitionToScene(string sceneName)
     {
+        if (isTransitioning) return;
+
         StartCoroutine(Transition(sceneName));
     }
 
     IEnumerator Transition(string sceneName)
     {
-        // 🟡 0. SMALL DELAY BEFORE ANYTHING
-        yield return new WaitForSeconds(0.5f); // 👈 adjust (0.3–1.0 feels good)
+        isTransitioning = true;
 
-        // 1. Fade out
+        Debug.Log("Transition STARTED");
+
+        // 🟡 small pre-delay
+        yield return new WaitForSeconds(0.5f);
+
+        // 🔴 FADE TO BLACK
         ScreenFade.Instance.FadeOut(2f);
-
-        // 2. Wait for fade to finish
         yield return new WaitForSeconds(2f);
 
-        // 3. Load scene
-        SceneManager.LoadScene(sceneName);
-
-        // 4. Wait one frame (ensure scene loads)
+        // ⚫ FORCE FULL BLACK (important safety step)
+        ScreenFade.Instance.FadeToColor(Color.black, 0.01f);
         yield return null;
 
-        // 5. Fade in
-        ScreenFade.Instance.FadeIn(2f);
+        // 🔁 LOAD SCENE (now hidden behind black)
+        SceneManager.LoadScene(sceneName);
+
+        // ⏳ wait for scene to fully settle
+        yield return new WaitForEndOfFrame();
+        yield return null;
+
+        // ⚫ ENSURE STILL BLACK AFTER LOAD
+        ScreenFade.Instance.FadeToColor(Color.black, 0.01f);
+
+        // 🟣 SHOW LEVEL COMPLETE ON BLACK SCREEN
+        if (levelCompleteText != null)
+        {
+            levelCompleteText.SetActive(true);
+            Debug.Log("LEVEL COMPLETE SHOWN ON BLACK SCREEN");
+        }
+        else
+        {
+            Debug.LogError("LevelCompleteText not assigned");
+        }
+
+        // ⏱ hold on black screen
+        yield return new WaitForSeconds(1.5f);
+
+        // 🟣 HIDE TEXT
+        if (levelCompleteText != null)
+            levelCompleteText.SetActive(false);
+
+        // 🌅 FADE INTO NEW SCENE VISUALLY
+        ScreenFade.Instance.FadeIn(1.5f);
+
+        isTransitioning = false;
     }
 }
