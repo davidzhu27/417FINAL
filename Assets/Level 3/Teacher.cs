@@ -5,6 +5,7 @@ public class Teacher : MonoBehaviour
 {
     public Transform playerCoords;
     public UnityEngine.AI.NavMeshAgent agent;
+    public string cutsceneName;
     private bool killStudent = false;
     private Vector3 current_waypoint;
     private Vector3 initial_waypoint;
@@ -26,16 +27,36 @@ public class Teacher : MonoBehaviour
         agent.SetDestination(initial_waypoint);
         animator.SetTrigger("WalkTrigger");
     }
+    public void FacePlayer(Camera playerCamera)
+    {
+        if (playerCamera == null) return;
+        FacePlayer(playerCamera.transform);
+    }
+
+    public void FacePlayer(Transform target)
+    {
+        if (target == null) return;
+
+        Vector3 toTarget = target.position - transform.position;
+        toTarget.y = 0f; // yaw only
+        if (toTarget.sqrMagnitude < 0.0001f) return;
+
+        transform.rotation = Quaternion.LookRotation(toTarget.normalized, Vector3.up);
+    }
+
 
     // Update is called once per frame
     void Update()
     {
         if (killStudent && !reached_player) {
-            agent.nextPosition = transform.position;
-            agent.updatePosition = true;
             agent.SetDestination(playerCoords.position);
-            if (!agent.pathPending && (agent.remainingDistance <= agent.stoppingDistance) && agent.velocity.sqrMagnitude == 0f) {
+            if (Vector3.Distance(transform.position, playerCoords.position) < 4.0f) {
                 reached_player = true;
+                agent.velocity = Vector3.zero;
+                agent.updatePosition = false;
+                animator.SetTrigger("StandTrigger");
+                move_speed = 0.0f;
+                agent.ResetPath();
             }
         } else if (killStudent){
             if (!executed) ExecuteStudent();
@@ -88,10 +109,12 @@ public class Teacher : MonoBehaviour
         agent.nextPosition = transform.position;
         killStudent = true;
         animator.SetTrigger("StudentTrigger");
+        agent.nextPosition = transform.position;
+        agent.updatePosition = true;
     }
     public void ExecuteStudent() {
         executed = true;
-        ResetWorld();
+        CutsceneManager.Instance.PlayCutscene(cutsceneName);
     }
     public void ResetWorld() {
         killStudent = false;
@@ -104,5 +127,7 @@ public class Teacher : MonoBehaviour
         agent.nextPosition = initial_location;
         agent.updatePosition = true;
         agent.SetDestination(initial_waypoint);
+        move_speed = 2.0f;
+        animator.SetTrigger("WalkTrigger");
     }
 }

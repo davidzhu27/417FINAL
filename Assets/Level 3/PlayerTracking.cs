@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 public class PlayerTracking : MonoBehaviour
 {
     [SerializeField] Transform cameraTransform;
@@ -20,7 +21,7 @@ public class PlayerTracking : MonoBehaviour
     void Start()
     {
         prev_rotation = cameraTransform.rotation;
-        startPosition = cameraTransform.position;
+        startPosition = new Vector3(-8.0f, 0.0f, 22.0f);
         initRotation = cameraTransform.rotation;
     }
 
@@ -40,8 +41,8 @@ public class PlayerTracking : MonoBehaviour
         triggered = true;
         teacher.SetExecuteStudent();
     }
-    void ResetPlayer() {
-        cameraTransform.position = startPosition;
-        cameraTransform.rotation = initRotation;
+    public void ResetPlayer() {
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
