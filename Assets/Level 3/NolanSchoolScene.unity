@@ -2787,6 +2787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TrayScript
   boardText: {fileID: 1681957526}
+  player: {fileID: 1674315404}
 --- !u!1 &759339609
 GameObject:
   m_ObjectHideFlags: 0
@@ -6915,6 +6916,12 @@ MonoBehaviour:
   cameraTransform: {fileID: 1674315395}
   max_turn_amount: 120
   teacher: {fileID: 1986965963}
+  texts:
+  - {fileID: 1026335934}
+  - {fileID: 759339611}
+  - {fileID: 1681957526}
+  - {fileID: 525023071}
+  - {fileID: 278551117}
 --- !u!1 &1681957524
 GameObject:
   m_ObjectHideFlags: 0
