@@ -60,8 +60,6 @@ public class NPCSpawner : MonoBehaviour
         Person per = person.GetComponentInChildren<Person>();
         if (isTestTaker) {        
             Vector3 dest = new Vector3(dest_x_coord, 0.0f, dest_z_coord);
-            Debug.Log(dest);
-            Debug.Log(x_ind);
             x_ind-=1;
             if (x_ind == -1) {
                 x_dir+=1;
