@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.AI;
 public abstract class NPC : MonoBehaviour
 {
     protected float move_speed = 5.0f;
@@ -7,13 +7,14 @@ public abstract class NPC : MonoBehaviour
     protected bool moving = true;
     protected bool basic_path = true;
     protected float move_sign = 1.0f;
+    [SerializeField] protected NavMeshAgent agent;
+    protected Vector3 agent_destination;
     protected virtual void Awake() {
 
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -21,10 +22,11 @@ public abstract class NPC : MonoBehaviour
     {
         if (basic_path) basicPathFollowing();
         else {
-
+            if (moving) agent.SetDestination(agent_destination);
         }
     }
     public void basicPathFollowing() {
+        agent.updatePosition = false;
         animateNPC();
         if (moving) {
             if (moving_direction == "x" || moving_direction == "-x") {
