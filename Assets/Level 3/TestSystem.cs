@@ -49,22 +49,20 @@ public class TestSystem : MonoBehaviour
         }
     }
     public void SubmitAnswer(string selected_answer) {
+        if (curQuestionInd > total_questions) return;
         if (selected_answer == examData.questions[curQuestionInd].correct_answer) numCorrect+=1;
         if (curQuestionInd+1 == total_questions) {
-            if (numCorrect == total_questions) {
-                DisplayWin();
-            } else {
-                ResetPlayer();
+            questionText.text = "PUT EXAM IN BIN ON TEACHER'S DESK";
+            for (int i = 0; i < answersUI.Count; i++) {
+                answersUI[i].button.interactable = false;
+                answersUI[i].textUI.text = "PUT EXAM IN BIN ON TEACHER'S DESK";
             }
         } else {
             curQuestionInd+=1;
             DisplayNextQuestion();
         }
     }
-    public void ResetPlayer() {
-
-    }
-    public void DisplayWin() {
-
+    public bool GradeExam() {
+        return numCorrect == total_questions;
     }
 }
