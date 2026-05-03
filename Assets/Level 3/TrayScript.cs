@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class TrayScript : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI boardText;
+    [SerializeField] private PlayerTracking player;
     private bool triggered = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,6 +27,7 @@ public class TrayScript : MonoBehaviour
             if (exam_sys.GradeExam()) {
                 triggered = true;
                 boardText.text = "You Pass!\n Congrats on surviving a day at school!";
+                player.Win();
             } else {
                 boardText.text = "You Fail!\n Good luck on the next attempt!";
                 StartCoroutine(FailLevel());
