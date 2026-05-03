@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
-using UnityEngine.SceneManagement;
 
 public class TestSystem : MonoBehaviour
 {
@@ -50,20 +49,20 @@ public class TestSystem : MonoBehaviour
         }
     }
     public void SubmitAnswer(string selected_answer) {
-        Debug.Log(selected_answer);
         if (curQuestionInd > total_questions) return;
         if (selected_answer == examData.questions[curQuestionInd].correct_answer) numCorrect+=1;
         if (curQuestionInd+1 == total_questions) {
             questionText.text = "PUT EXAM IN BIN ON TEACHER'S DESK";
+            for (int i = 0; i < answersUI.Count; i++) {
+                answersUI[i].button.interactable = false;
+                answersUI[i].textUI.text = "PUT EXAM IN BIN ON TEACHER'S DESK";
+            }
         } else {
             curQuestionInd+=1;
             DisplayNextQuestion();
         }
     }
-    public void DisplayWin() {
-
-    }
-    public void FailTest(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    public bool GradeExam() {
+        return numCorrect == total_questions;
     }
 }
