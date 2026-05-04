@@ -26,6 +26,8 @@ public class CashierCheckout : MonoBehaviour
     private bool failTick2Done = false;
     private bool failTick3Done = false;
 
+    public string nextSceneName;
+
     private void Start()
     {
         if (cashierTextObject != null)
@@ -53,6 +55,12 @@ public class CashierCheckout : MonoBehaviour
 
             if (cashierText != null)
                 cashierText.text = passedResult ? "Bon Appetit!" : "You feel sick...";
+                if (!passedResult) {
+                    SceneTransitionManager.Instance.TransitionToScene(nextSceneName);
+                }
+                else {
+                    CutsceneManager.Instance.PlayCutscene("Cutscene_FoodPoisoning");
+                }
 
             resultTimer = resultDelay;
         }
