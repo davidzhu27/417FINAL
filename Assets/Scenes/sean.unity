@@ -1009,7 +1009,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.1}
+  m_AnchoredPosition: {x: 0, y: -0.2}
   m_SizeDelta: {x: 800, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &422580291
@@ -1697,6 +1697,26 @@ PrefabInstance:
     - target: {fileID: 4798510324153478985, guid: 9f250af3aadb03945bebb8794c27699f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645079669106141502, guid: 9f250af3aadb03945bebb8794c27699f, type: 3}
+      propertyPath: lengthInSec
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645079669106141502, guid: 9f250af3aadb03945bebb8794c27699f, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645079669106141502, guid: 9f250af3aadb03945bebb8794c27699f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645079669106141502, guid: 9f250af3aadb03945bebb8794c27699f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645079669106141502, guid: 9f250af3aadb03945bebb8794c27699f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.9942193
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3277,6 +3297,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7645079669106141502, guid: 9f250af3aadb03945bebb8794c27699f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.79154724
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645079669106141502, guid: 9f250af3aadb03945bebb8794c27699f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7645079669106141502, guid: 9f250af3aadb03945bebb8794c27699f, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.047481313
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3968,7 +4000,7 @@ PrefabInstance:
     - target: {fileID: 3904650674202027277, guid: efb3fa804153155409650916598a3d1f, type: 3}
       propertyPath: collectParticlePrefab
       value: 
-      objectReference: {fileID: 816703771}
+      objectReference: {fileID: 1665453183}
     - target: {fileID: 5638453374918312721, guid: efb3fa804153155409650916598a3d1f, type: 3}
       propertyPath: m_Name
       value: book_0001b
@@ -4326,7 +4358,7 @@ PrefabInstance:
     - target: {fileID: 4225910757504752386, guid: 47d2972e7ce6a3245ab297e8b32b3946, type: 3}
       propertyPath: collectParticlePrefab
       value: 
-      objectReference: {fileID: 1665453183}
+      objectReference: {fileID: 816703771}
     - target: {fileID: 4225910757504752386, guid: 47d2972e7ce6a3245ab297e8b32b3946, type: 3}
       propertyPath: collectAnimationDuration
       value: 3
@@ -4403,10 +4435,10 @@ SceneRoots:
   - {fileID: 1875234222}
   - {fileID: 184007697}
   - {fileID: 839521640}
+  - {fileID: 670915909}
   - {fileID: 458078840}
   - {fileID: 135309287}
   - {fileID: 1210430279}
-  - {fileID: 670915909}
   - {fileID: 1409625318}
   - {fileID: 570205275}
   - {fileID: 1727131923}
