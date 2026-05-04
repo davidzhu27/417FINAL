@@ -14,6 +14,7 @@ public class CrossingTimer : MonoBehaviour
     private bool isRunning = false;
     private bool isResetting = false;
     private bool isPaused = false;
+    private bool levelCompleted = false;
 
     void Start()
     {
@@ -29,7 +30,7 @@ public class CrossingTimer : MonoBehaviour
 
     void Update()
     {
-        if (!isRunning || isResetting || isPaused)
+        if (!isRunning || isResetting || isPaused || levelCompleted)
         {
             return;
         }
@@ -51,6 +52,12 @@ public class CrossingTimer : MonoBehaviour
     public void StartTimer()
     {
         Debug.Log("StartTimer was called.");
+
+        if (levelCompleted)
+        {
+            Debug.Log("Level already completed. Timer will not restart.");
+            return;
+        }
 
         if (isRunning || isResetting)
         {
@@ -89,6 +96,24 @@ public class CrossingTimer : MonoBehaviour
         HideTimer();
     }
 
+    public void CompleteLevel()
+    {
+        levelCompleted = true;
+        isRunning = false;
+        isPaused = false;
+        isResetting = false;
+
+        StopAllCoroutines();
+        HideTimer();
+
+        Debug.Log("Level completed. Timer permanently stopped.");
+    }
+
+    public bool IsLevelCompleted()
+    {
+        return levelCompleted;
+    }
+
     public void ResetTimerHidden()
     {
         StopAllCoroutines();
@@ -113,6 +138,16 @@ public class CrossingTimer : MonoBehaviour
         }
     }
 
+    public void ResetTimerForRetry()
+    {
+        if (levelCompleted)
+        {
+            return;
+        }
+
+        ResetTimerHidden();
+    }
+
     private void HideTimer()
     {
         if (timerText != null)
@@ -124,6 +159,11 @@ public class CrossingTimer : MonoBehaviour
 
     IEnumerator TimeUpReset()
     {
+        if (levelCompleted)
+        {
+            yield break;
+        }
+
         isResetting = true;
         isRunning = false;
 
@@ -148,6 +188,11 @@ public class CrossingTimer : MonoBehaviour
             yield return new WaitForSeconds(1.2f);
         }
 
+        if (levelCompleted)
+        {
+            yield break;
+        }
+
         if (player != null && playerStartPoint != null)
         {
             player.position = playerStartPoint.position;
@@ -159,7 +204,15 @@ public class CrossingTimer : MonoBehaviour
             messageText.transform.localScale = Vector3.one;
             messageText.rectTransform.anchoredPosition = Vector2.zero;
         }
-        EventManager.Instance.startCars.Invoke();
+
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.startCars.Invoke();
+        }
+        else
+        {
+            Debug.LogWarning("EventManager.Instance is null. Cars were not restarted.");
+        }
 
         ResetTimerHidden();
     }
@@ -216,7 +269,7 @@ public class CrossingTimer : MonoBehaviour
 
     public void PauseTimer()
     {
-        if (isRunning)
+        if (isRunning && !levelCompleted)
         {
             isPaused = true;
         }
@@ -224,7 +277,7 @@ public class CrossingTimer : MonoBehaviour
 
     public void ResumeTimer()
     {
-        if (isRunning)
+        if (isRunning && !levelCompleted)
         {
             isPaused = false;
         }
