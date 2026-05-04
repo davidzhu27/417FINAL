@@ -17,13 +17,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Mohammad.unity
     guid: ea9f7d3d038e62449814afa9727f1863
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Lunch.unity
     guid: 2f378188d2c0d48ebb2bc736409a62e0
-  - enabled: 0
+  - enabled: 1
     path: Assets/Kaiyue/Scenes/Level2_WalkingToClass_Kaiyue.unity
     guid: 06329491b717846708d92f745cfcb937
-  - enabled: 1
+  - enabled: 0
     path: Assets/Level 3/NolanSchoolScene.unity
     guid: 2a2e81a0846efcf458d2916ab7f68e3f
   m_configObjects:
