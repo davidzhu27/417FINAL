@@ -48,4 +48,20 @@ public class TrayMealTracker : MonoBehaviour
                 break;
         }
     }
+
+    public bool HasDrink()
+    {
+        return drinkItem != null;
+    }
+
+    public bool IsMealSafe()
+    {
+        if (mainItem == null || side1Item == null || side2Item == null || drinkItem == null)
+            return false;
+
+        return !mainItem.isPoisoned &&
+            !side1Item.isPoisoned &&
+            !side2Item.isPoisoned &&
+            !drinkItem.isPoisoned;
+    }
 }
