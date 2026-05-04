@@ -253,7 +253,9 @@ MonoBehaviour:
   poisonDrink: {fileID: 1729090792}
   playerHUDController: {fileID: 1553056912}
   failSceneName: Lunch
+  nextSceneName: Level2_WalkingToClass_Kaiyue
   resultDelay: 3
+  poisonCutsceneDelay: 6
   drinkStageUnlocked: 0
 --- !u!1 &80166265
 GameObject:
@@ -493,15 +495,23 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1817344596}
     m_Modifications:
+    - target: {fileID: 480566971417177998, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 997952260078338464, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
+      propertyPath: m_RenderMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
       propertyPath: m_Pivot.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
       propertyPath: m_Pivot.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -521,11 +531,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1604
       objectReference: {fileID: 0}
     - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 1028
+      objectReference: {fileID: 0}
+    - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -537,7 +559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -561,7 +583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -823,6 +845,14 @@ PrefabInstance:
       value: Cutscene_FoodPoisoning
       objectReference: {fileID: 0}
     - target: {fileID: 3112528685791693404, guid: 5538d6a8da9674aae80190f39e915072, type: 3}
+      propertyPath: 'm_Events.m_Signals.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a73f26b8875ae9a47a2f6397079861c0, type: 2}
+    - target: {fileID: 3112528685791693404, guid: 5538d6a8da9674aae80190f39e915072, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3112528685791693404, guid: 5538d6a8da9674aae80190f39e915072, type: 3}
       propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1759451553}
@@ -837,7 +867,7 @@ PrefabInstance:
     - target: {fileID: 3112528685791693404, guid: 5538d6a8da9674aae80190f39e915072, type: 3}
       propertyPath: m_Events.m_Events.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 264807669}
+      objectReference: {fileID: 1316335305}
     - target: {fileID: 3112528685791693404, guid: 5538d6a8da9674aae80190f39e915072, type: 3}
       propertyPath: m_Events.m_Events.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartNausea
@@ -852,7 +882,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3112528685791693404, guid: 5538d6a8da9674aae80190f39e915072, type: 3}
       propertyPath: m_Events.m_Events.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ResetAfterDeath
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3112528685791693404, guid: 5538d6a8da9674aae80190f39e915072, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3112528685791693404, guid: 5538d6a8da9674aae80190f39e915072, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8475377475019760796, guid: 5538d6a8da9674aae80190f39e915072, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1005,7 +1043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6004930442306932536, guid: 48ca87c4bc824477fbf87147c541ac6a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6486
+      value: 0.031
       objectReference: {fileID: 0}
     - target: {fileID: 6004930442306932536, guid: 48ca87c4bc824477fbf87147c541ac6a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1048,17 +1086,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48ca87c4bc824477fbf87147c541ac6a, type: 3}
---- !u!114 &264807669 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 598649640129274113, guid: 48ca87c4bc824477fbf87147c541ac6a, type: 3}
-  m_PrefabInstance: {fileID: 264807668}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d07a33b1e5ac34046bb9e2015caa349a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
 --- !u!1 &310476751
 GameObject:
   m_ObjectHideFlags: 0
@@ -2824,6 +2851,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 082815481f9809a49bc7e44fb142da32, type: 3}
+--- !u!1 &1316335305 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3419443418831049960, guid: 48ca87c4bc824477fbf87147c541ac6a, type: 3}
+  m_PrefabInstance: {fileID: 264807668}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1331212407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3253,6 +3285,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1553056911}
+    - targetCorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1753795110}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1767192433, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       insertIndex: -1
@@ -4012,6 +4047,11 @@ Transform:
   - {fileID: 834119356}
   m_Father: {fileID: 981796586}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1753795110 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2811860327162109528, guid: 75a57d5cd4f194ddfb623b6551f7797d, type: 3}
+  m_PrefabInstance: {fileID: 120698601}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1754093142
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5404,5 +5444,4 @@ SceneRoots:
   - {fileID: 225803498}
   - {fileID: 264807668}
   - {fileID: 1759451552}
-  - {fileID: 120698601}
   - {fileID: 1754093142}
