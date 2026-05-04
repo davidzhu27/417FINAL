@@ -52960,7 +52960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b92df272628af7a44afacb338410b8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  nextSceneName: Level2_WalkingToClass_Kaiyue
+  nextSceneName: NolanSchoolScene
 --- !u!65 &1449061355
 BoxCollider:
   m_ObjectHideFlags: 0
