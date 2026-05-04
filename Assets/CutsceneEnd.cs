@@ -13,16 +13,23 @@ public class CutsceneEnd : MonoBehaviour
 
     public void ResetAfterDeath()
     {
-        playerRig.transform.position = respawnPoint.position;
+        // playerRig.transform.position = respawnPoint.position;
+        // if (attemptManager != null)
+        // {
+        //     attemptManager.AddAttempt();
+        // }
+        
+
+        // // fallEffect.ResetCamera(); // ✅ FIX
+
+        // // CutsceneManager.Instance.EnablePlayer();
+        // // ScreenFade.Instance.FadeIn(1f);
+        Time.timeScale = 1f;
         if (attemptManager != null)
         {
             attemptManager.AddAttempt();
         }
-        
 
-        fallEffect.ResetCamera(); // ✅ FIX
-
-        CutsceneManager.Instance.EnablePlayer();
-        ScreenFade.Instance.FadeIn(1f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
