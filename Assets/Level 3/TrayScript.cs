@@ -8,6 +8,7 @@ public class TrayScript : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI boardText;
     [SerializeField] private PlayerTracking player;
+    [SerializeField] private string nextSceneName;
     private bool triggered = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +29,7 @@ public class TrayScript : MonoBehaviour
                 triggered = true;
                 boardText.text = "You Pass!\n Congrats on surviving a day at school!";
                 player.Win();
+                SceneTransitionManager.Instance.TransitionToScene(nextSceneName);
             } else {
                 boardText.text = "You Fail!\n Good luck on the next attempt!";
                 StartCoroutine(FailLevel());
