@@ -11,6 +11,9 @@ public class BananaPeelHazard : MonoBehaviour
     public TMP_Text messageText;
     public SoundManager soundManager;
 
+    public CrossingTimer crossingTimer;
+    public CrossingTimerZone timerZone;
+
     public float pickupDistance = 2f;
     public float throwDistance = 2.5f;
     public float fallDuration = 0.25f;
@@ -181,6 +184,17 @@ public class BananaPeelHazard : MonoBehaviour
         {
             player.position = playerStartPoint.position;
             player.rotation = playerOriginalRotation;
+        }
+
+        // Reset timer so it hides again and can restart when player enters StartTimerZone
+        if (crossingTimer != null)
+        {
+            crossingTimer.ResetTimerHidden();
+        }
+
+        if (timerZone != null)
+        {
+            timerZone.ResetZone();
         }
 
         yield return new WaitForSeconds(0.3f);

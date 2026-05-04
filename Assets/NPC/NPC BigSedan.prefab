@@ -1648,6 +1648,7 @@ GameObject:
   - component: {fileID: 982967955601682166}
   - component: {fileID: 7766290576550841145}
   - component: {fileID: 1292469014521365549}
+  - component: {fileID: 6702975213815208204}
   m_Layer: 0
   m_Name: Big_Sedan
   m_TagString: Untagged
@@ -1769,6 +1770,8 @@ MonoBehaviour:
   frontRightW: {fileID: 3552482480993293879}
   backRightW: {fileID: 7039795528241981346}
   rotation_speed: 60
+  lifetime: 5
+  carHazard: {fileID: 6702975213815208204}
 --- !u!54 &1292469014521365549
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1791,11 +1794,33 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &6702975213815208204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296477960510060544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3c22b2f7f53c4090b2e19319a17bb42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarHazard
+  player: {fileID: 0}
+  playerStartPoint: {fileID: 0}
+  hornDistance: 4
+  hitDistance: 1.5
+  soundManager: {fileID: 0}
+  vehicle: {fileID: 0}
+  crossingTimer: {fileID: 0}
+  timerZone: {fileID: 0}
+  fallDuration: 0.25
+  stayDownDuration: 0.8
 --- !u!1 &6730686660247073868
 GameObject:
   m_ObjectHideFlags: 0
