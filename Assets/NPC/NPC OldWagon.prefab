@@ -1597,6 +1597,7 @@ GameObject:
   - component: {fileID: 4794881456115483912}
   - component: {fileID: 7098393741184590578}
   - component: {fileID: 4543331854105283987}
+  - component: {fileID: 1581542794841580347}
   m_Layer: 0
   m_Name: OldWagon
   m_TagString: Untagged
@@ -1697,6 +1698,8 @@ MonoBehaviour:
   frontRightW: {fileID: 6022033412539785096}
   backRightW: {fileID: 4570512670531256728}
   rotation_speed: 60
+  lifetime: 5
+  carHazard: {fileID: 1581542794841580347}
 --- !u!65 &7098393741184590578
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1740,11 +1743,33 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1581542794841580347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6754262605767046349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3c22b2f7f53c4090b2e19319a17bb42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarHazard
+  player: {fileID: 0}
+  playerStartPoint: {fileID: 0}
+  hornDistance: 4
+  hitDistance: 1.5
+  soundManager: {fileID: 0}
+  vehicle: {fileID: 0}
+  crossingTimer: {fileID: 0}
+  timerZone: {fileID: 0}
+  fallDuration: 0.25
+  stayDownDuration: 0.8
 --- !u!1 &6971807659184226472
 GameObject:
   m_ObjectHideFlags: 0

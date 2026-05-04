@@ -17,12 +17,14 @@ public class CrossingTimer : MonoBehaviour
 
     void Start()
     {
+        HideTimer();
+
         if (messageText != null)
         {
             messageText.gameObject.SetActive(false);
+            messageText.transform.localScale = Vector3.one;
+            messageText.rectTransform.anchoredPosition = Vector2.zero;
         }
-
-        ResetTimerToReady();
     }
 
     void Update()
@@ -36,6 +38,7 @@ public class CrossingTimer : MonoBehaviour
 
         if (timerText != null)
         {
+            timerText.gameObject.SetActive(true);
             timerText.text = "Time: " + Mathf.Ceil(currentTime).ToString();
         }
 
@@ -47,8 +50,11 @@ public class CrossingTimer : MonoBehaviour
 
     public void StartTimer()
     {
+        Debug.Log("StartTimer was called.");
+
         if (isRunning || isResetting)
         {
+            Debug.Log("Timer did not start because it is already running or resetting.");
             return;
         }
 
@@ -58,7 +64,21 @@ public class CrossingTimer : MonoBehaviour
 
         if (timerText != null)
         {
+            Debug.Log("TimerText found. Showing timer.");
+
+            if (timerText.transform.parent != null)
+            {
+                timerText.transform.parent.gameObject.SetActive(true);
+            }
+
+            timerText.gameObject.SetActive(true);
+            timerText.color = Color.white;
+            timerText.fontSize = 72;
             timerText.text = "Time: " + Mathf.Ceil(currentTime).ToString();
+        }
+        else
+        {
+            Debug.LogWarning("TimerText is NOT assigned on CrossingTimer!");
         }
     }
 
@@ -66,22 +86,39 @@ public class CrossingTimer : MonoBehaviour
     {
         isRunning = false;
         isPaused = false;
+        HideTimer();
+    }
 
-        if (timerText != null)
+    public void ResetTimerHidden()
+    {
+        StopAllCoroutines();
+
+        currentTime = timeLimit;
+        isRunning = false;
+        isResetting = false;
+        isPaused = false;
+
+        HideTimer();
+
+        if (messageText != null)
         {
-            timerText.text = "Ready";
+            if (messageText.transform.parent != null)
+            {
+                messageText.transform.parent.gameObject.SetActive(true);
+            }
+
+            messageText.gameObject.SetActive(false);
+            messageText.transform.localScale = Vector3.one;
+            messageText.rectTransform.anchoredPosition = Vector2.zero;
         }
     }
 
-    public void ResetTimerToReady()
+    private void HideTimer()
     {
-        currentTime = timeLimit;
-        isRunning = false;
-        isPaused = false;
-
         if (timerText != null)
         {
-            timerText.text = "Ready";
+            timerText.text = "";
+            timerText.gameObject.SetActive(false);
         }
     }
 
@@ -90,8 +127,15 @@ public class CrossingTimer : MonoBehaviour
         isResetting = true;
         isRunning = false;
 
+        HideTimer();
+
         if (messageText != null)
         {
+            if (messageText.transform.parent != null)
+            {
+                messageText.transform.parent.gameObject.SetActive(true);
+            }
+
             messageText.text = "Too slow!\nTry again!";
             messageText.color = new Color(1f, 0.35f, 0.05f);
             messageText.fontSize = 64;
@@ -115,13 +159,18 @@ public class CrossingTimer : MonoBehaviour
             messageText.transform.localScale = Vector3.one;
             messageText.rectTransform.anchoredPosition = Vector2.zero;
         }
+        EventManager.Instance.startCars.Invoke();
 
-        ResetTimerToReady();
-        isResetting = false;
+        ResetTimerHidden();
     }
 
     IEnumerator PopAndBounceMessage()
     {
+        if (messageText == null)
+        {
+            yield break;
+        }
+
         float duration = 1.4f;
         float elapsed = 0f;
 
