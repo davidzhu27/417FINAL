@@ -31,7 +31,10 @@ public class PlayerHUDController : MonoBehaviour
     public void ShowProgressAtStart()
     {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
-        int progressPercent = Mathf.RoundToInt(((currentIndex + 1) / (float)totalPlayableLevels) * 100f);
+        int progressPercent = 0;
+
+        if (totalPlayableLevels > 1)
+            progressPercent = Mathf.RoundToInt((currentIndex / (float)(totalPlayableLevels - 1)) * 100f);
 
         if (progressText != null)
         {
