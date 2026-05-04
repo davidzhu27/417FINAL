@@ -30,4 +30,22 @@ public class TrayMealTracker : MonoBehaviour
     {
         return mainItem != null && side1Item != null && side2Item != null;
     }
+    public void ClearItem(FoodSlotType slotType)
+    {
+        switch (slotType)
+        {
+            case FoodSlotType.Main:
+                mainItem = null;
+                break;
+            case FoodSlotType.Side1:
+                side1Item = null;
+                break;
+            case FoodSlotType.Side2:
+                side2Item = null;
+                break;
+            case FoodSlotType.Drink:
+                drinkItem = null;
+                break;
+        }
+    }
 }
