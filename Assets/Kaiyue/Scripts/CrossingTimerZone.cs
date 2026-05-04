@@ -8,13 +8,24 @@ public class CrossingTimerZone : MonoBehaviour
     {
         Debug.Log("Entered timer zone: " + other.name + " tag: " + other.tag);
 
-        if (!other.CompareTag("Player"))
+        bool isPlayer =
+            other.CompareTag("Player") ||
+            other.transform.root.CompareTag("Player") ||
+            other.GetComponentInParent<CharacterController>() != null;
+
+        if (!isPlayer)
         {
             return;
         }
 
         if (crossingTimer != null)
         {
+            if (crossingTimer.IsLevelCompleted())
+            {
+                Debug.Log("Level already completed, timer will not start again.");
+                return;
+            }
+
             Debug.Log("Starting crossing timer from zone.");
             crossingTimer.StartTimer();
         }
@@ -26,7 +37,6 @@ public class CrossingTimerZone : MonoBehaviour
 
     public void ResetZone()
     {
-        // No lock now, so nothing is needed here.
         // Keep this method so CarHazard and BananaPeelHazard won't break.
     }
 }

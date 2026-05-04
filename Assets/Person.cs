@@ -10,12 +10,22 @@ public class Person : NPC {
     [SerializeField] private int person_type = 0;
     private float acc_time = 0.0f;
     protected override void Awake() {
-        moving = false;
+        moving = true;
         move_speed = 1.0f;
     }
     public void setup(string npc_type) {
         if (npc_type.Equals("indoor", StringComparison.OrdinalIgnoreCase)) person_type = 1;
         else if (npc_type.Equals("test_taker", StringComparison.OrdinalIgnoreCase)) person_type = 2;
+    }
+    public void setup(string npc_type, Vector3 dest_coords) {
+        basic_path = false;
+        person_type = 2;
+        agent_destination = dest_coords;
+        agent.nextPosition = transform.position;
+        agent.updatePosition = true;
+        agent.SetDestination(agent_destination);
+        moving = true;
+        Walk(0);
     }
     public void Walk(int num) {
         if (num % 2 == 0) {
@@ -37,12 +47,15 @@ public class Person : NPC {
         }
         moving = false;
     }
+    public void Sit() {
+        moving = false;
+        agent.velocity = Vector3.zero;
+        agent.updatePosition = false;
+        agent.ResetPath();
+        animator.SetTrigger("SitTrigger");
+    }
     public override void animateNPC() {
         if (person_type == 2) {
-            if (acc_time < 1.0f) {
-                animator.SetTrigger("ThinkingIdle");
-                acc_time = 2.0f;
-            } 
             return;
         }
         if (moving) {
