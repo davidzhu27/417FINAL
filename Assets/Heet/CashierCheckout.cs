@@ -55,7 +55,7 @@ public class CashierCheckout : MonoBehaviour
 
             if (cashierText != null)
                 cashierText.text = passedResult ? "Bon Appetit!" : "You feel sick...";
-                if (!passedResult) {
+                if (passedResult) {
                     SceneTransitionManager.Instance.TransitionToScene(nextSceneName);
                 }
                 else {

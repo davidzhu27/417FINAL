@@ -5109,8 +5109,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1029455484}
-          m_TargetAssemblyTypeName: ScreenFadeProxy, Assembly-CSharp
+        - m_Target: {fileID: 1046911198}
+          m_TargetAssemblyTypeName: ScreenFade, Assembly-CSharp
           m_MethodName: FadeToRedFast
           m_Mode: 1
           m_Arguments:
@@ -5123,8 +5123,8 @@ MonoBehaviour:
           m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1029455484}
-          m_TargetAssemblyTypeName: ScreenFadeProxy, Assembly-CSharp
+        - m_Target: {fileID: 1046911198}
+          m_TargetAssemblyTypeName: ScreenFade, Assembly-CSharp
           m_MethodName: FadeOut
           m_Mode: 4
           m_Arguments:
@@ -8174,6 +8174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   respawnPoint: {fileID: 1973865105}
   playerRig: {fileID: 624354279}
+  attemptManager: {fileID: 0}
   fallEffect: {fileID: 0}
 --- !u!114 &1491251692
 MonoBehaviour:
