@@ -21,8 +21,8 @@ public class SceneTransitionManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        if (levelCompleteText != null)
-            DontDestroyOnLoad(levelCompleteText.transform.root.gameObject);
+        // if (levelCompleteText != null)
+        //     DontDestroyOnLoad(levelCompleteText.transform.root.gameObject);
 
         Debug.Log($"SceneTransitionManager ready. levelCompleteText = {(levelCompleteText != null ? levelCompleteText.name : "NULL")}");
     }
