@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/CarTest.unity
     guid: 5751807bcb4451d40bd8f991775edf17
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DeathCutScenes.unity
     guid: 3db2428335adde44e9f0cae8855c41e9
   - enabled: 1
