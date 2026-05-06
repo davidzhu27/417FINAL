@@ -26,9 +26,20 @@ public class ScreenFade : MonoBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     // 👇 automatically fade IN after new scene loads
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (fadeImage == null)
+            return;
+
         FadeIn(1.5f); // adjust duration as you like
     }
 
@@ -68,6 +79,9 @@ public class ScreenFade : MonoBehaviour
 
     void StartFade(Color targetColor, float duration)
     {
+        if (fadeImage == null)
+            return;
+
         if (currentFade != null)
             StopCoroutine(currentFade);
 
