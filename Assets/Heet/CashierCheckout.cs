@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class CashierCheckout : MonoBehaviour
 {
@@ -14,7 +15,9 @@ public class CashierCheckout : MonoBehaviour
     public PlayerHUDController playerHUDController;
 
     public string failSceneName = "Lunch";
+    public string nextSceneName;
     public float resultDelay = 3f;
+    public float poisonCutsceneDelay = 6f;
 
     public bool drinkStageUnlocked = false;
 
@@ -25,8 +28,7 @@ public class CashierCheckout : MonoBehaviour
     private bool failTick1Done = false;
     private bool failTick2Done = false;
     private bool failTick3Done = false;
-
-    public string nextSceneName;
+    private bool failSequenceStarted = false;
 
     private void Start()
     {
@@ -55,12 +57,6 @@ public class CashierCheckout : MonoBehaviour
 
             if (cashierText != null)
                 cashierText.text = passedResult ? "Bon Appetit!" : "You feel sick...";
-                if (passedResult) {
-                    SceneTransitionManager.Instance.TransitionToScene(nextSceneName);
-                }
-                else {
-                    CutsceneManager.Instance.PlayCutscene("Cutscene_FoodPoisoning");
-                }
 
             resultTimer = resultDelay;
         }
@@ -137,20 +133,47 @@ public class CashierCheckout : MonoBehaviour
     {
         if (passedResult)
         {
-            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-
-            if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+            if (SceneTransitionManager.Instance != null && !string.IsNullOrEmpty(nextSceneName))
             {
-                SceneManager.LoadScene(nextSceneIndex);
+                SceneTransitionManager.Instance.TransitionToScene(nextSceneName);
             }
             else
             {
-                Debug.LogWarning("No next scene found in Build Settings.");
+                int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+                if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+                {
+                    SceneManager.LoadScene(nextSceneIndex);
+                }
+                else
+                {
+                    Debug.LogWarning("No next scene found in Build Settings.");
+                }
             }
         }
         else
         {
-            SceneManager.LoadScene(failSceneName);
+            if (failSequenceStarted) return;
+
+            failSequenceStarted = true;
+
+            if (CutsceneManager.Instance != null)
+            {
+                CutsceneManager.Instance.PlayCutscene("Cutscene_FoodPoisoning");
+                StartCoroutine(ReloadFailSceneAfterDelay(poisonCutsceneDelay));
+            }
+            else
+            {
+                SceneManager.LoadScene(failSceneName);
+            }
         }
+    }
+
+    private IEnumerator ReloadFailSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(failSceneName);
     }
 }
