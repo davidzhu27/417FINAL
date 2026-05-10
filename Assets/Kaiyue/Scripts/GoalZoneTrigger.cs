@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
@@ -6,6 +7,10 @@ public class GoalZoneTrigger : MonoBehaviour
 {
     public TMP_Text messageText;
     public CrossingTimer crossingTimer;
+
+    [Header("Scene Transition")]
+    public string nextSceneName = "NolanSchoolScene";
+    public float transitionDelay = 1.2f;
 
     private bool reachedGoal = false;
 
@@ -37,57 +42,52 @@ public class GoalZoneTrigger : MonoBehaviour
             crossingTimer.CompleteLevel();
         }
 
+        StopAllCoroutines();
+        StartCoroutine(ShowSuccessThenTransition());
+    }
+
+    private IEnumerator ShowSuccessThenTransition()
+    {
         if (messageText != null)
         {
-            StopAllCoroutines();
-            StartCoroutine(ShowSuccessThenMoveToCorner());
+            if (messageText.transform.parent != null)
+            {
+                messageText.transform.parent.gameObject.SetActive(true);
+            }
+
+            RectTransform rect = messageText.rectTransform;
+
+            messageText.gameObject.SetActive(true);
+            messageText.enableAutoSizing = false;
+            messageText.text = "Success!";
+            messageText.color = Color.green;
+            messageText.fontSize = 96;
+            messageText.alignment = TextAlignmentOptions.Center;
+            messageText.transform.localScale = Vector3.one;
+
+            // Show big Success text in the center.
+            rect.anchorMin = new Vector2(0.5f, 0.5f);
+            rect.anchorMax = new Vector2(0.5f, 0.5f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = new Vector2(900f, 250f);
+
+            Debug.Log("Success shown in center.");
         }
         else
         {
             Debug.LogWarning("Success MessageText is not assigned!");
         }
-    }
 
-    private IEnumerator ShowSuccessThenMoveToCorner()
-    {
-        if (messageText.transform.parent != null)
+        yield return new WaitForSeconds(transitionDelay);
+
+        if (string.IsNullOrEmpty(nextSceneName))
         {
-            messageText.transform.parent.gameObject.SetActive(true);
+            Debug.LogWarning("Next scene name is not assigned on GoalZoneTrigger.");
+            yield break;
         }
 
-        RectTransform rect = messageText.rectTransform;
-
-        messageText.gameObject.SetActive(true);
-        messageText.enableAutoSizing = false;
-        messageText.text = "Success!";
-        messageText.color = Color.green;
-        messageText.fontSize = 96;
-        messageText.alignment = TextAlignmentOptions.Center;
-        messageText.transform.localScale = Vector3.one;
-
-        // Big text in the center first
-        rect.anchorMin = new Vector2(0.5f, 0.5f);
-        rect.anchorMax = new Vector2(0.5f, 0.5f);
-        rect.pivot = new Vector2(0.5f, 0.5f);
-        rect.anchoredPosition = Vector2.zero;
-        rect.sizeDelta = new Vector2(900f, 250f);
-
-        Debug.Log("Success shown in center.");
-
-        yield return new WaitForSeconds(1.2f);
-
-        // Then move to upper-left and keep it there
-        messageText.text = "Success!";
-        messageText.fontSize = 36;
-        messageText.alignment = TextAlignmentOptions.Left;
-        messageText.transform.localScale = Vector3.one;
-
-        rect.anchorMin = new Vector2(0f, 1f);
-        rect.anchorMax = new Vector2(0f, 1f);
-        rect.pivot = new Vector2(0f, 1f);
-        rect.anchoredPosition = new Vector2(25f, -25f);
-        rect.sizeDelta = new Vector2(350f, 100f);
-
-        Debug.Log("Success moved to upper-left corner.");
+        Debug.Log("Loading next scene: " + nextSceneName);
+        SceneManager.LoadScene(nextSceneName);
     }
 }
