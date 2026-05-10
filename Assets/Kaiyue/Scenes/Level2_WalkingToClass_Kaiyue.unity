@@ -130,7 +130,7 @@ PrefabInstance:
     - target: {fileID: 3033260476972541020, guid: 22de0021681993544836ff77ad2293e0, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 454185388}
+      objectReference: {fileID: 1741284560}
     - target: {fileID: 3033260476972541020, guid: 22de0021681993544836ff77ad2293e0, type: 3}
       propertyPath: timerZone
       value: 
@@ -271,7 +271,7 @@ MonoBehaviour:
   timeLimit: 5
   timerText: {fileID: 1229900613}
   messageText: {fileID: 1667284078}
-  player: {fileID: 454185388}
+  player: {fileID: 1741284560}
   playerStartPoint: {fileID: 1525933584}
 --- !u!4 &82838157
 Transform:
@@ -839,7 +839,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &454185384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -971,7 +971,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &498552844
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1173,7 +1173,7 @@ PrefabInstance:
     - target: {fileID: 3033260476972541020, guid: 22de0021681993544836ff77ad2293e0, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 454185388}
+      objectReference: {fileID: 1741284560}
     - target: {fileID: 3033260476972541020, guid: 22de0021681993544836ff77ad2293e0, type: 3}
       propertyPath: timerZone
       value: 
@@ -1369,6 +1369,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2844c5493ff643d4aad2cbc9563b1f4b, type: 3}
+--- !u!1001 &669911951
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.29458
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.84314
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187027, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+      propertyPath: m_Name
+      value: XR Device Simulator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
 --- !u!1001 &669915215
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1663,6 +1720,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GoalZoneTrigger
   messageText: {fileID: 1054582576}
   crossingTimer: {fileID: 82838156}
+  nextSceneName: NolanSchoolScene
+  transitionDelay: 1.2
 --- !u!1001 &700858695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2513,6 +2572,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GoalZoneTrigger
   messageText: {fileID: 0}
   crossingTimer: {fileID: 0}
+  nextSceneName: NolanSchoolScene
+  transitionDelay: 1.2
 --- !u!222 &1054582575
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2624,7 +2685,7 @@ PrefabInstance:
     - target: {fileID: 3033260476972541020, guid: 22de0021681993544836ff77ad2293e0, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 454185388}
+      objectReference: {fileID: 1741284560}
     - target: {fileID: 3033260476972541020, guid: 22de0021681993544836ff77ad2293e0, type: 3}
       propertyPath: timerZone
       value: 
@@ -3339,7 +3400,7 @@ PrefabInstance:
     - target: {fileID: 3033260476972541020, guid: 22de0021681993544836ff77ad2293e0, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 454185388}
+      objectReference: {fileID: 1741284560}
     - target: {fileID: 3033260476972541020, guid: 22de0021681993544836ff77ad2293e0, type: 3}
       propertyPath: timerZone
       value: 
@@ -3845,7 +3906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a61a80fd2169c46219c60e6805aedc0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BananaPeelHazard
-  player: {fileID: 454185388}
+  player: {fileID: 1741284560}
   playerStartPoint: {fileID: 1525933584}
   holdPoint: {fileID: 1734740272}
   messageText: {fileID: 1667284078}
@@ -3853,8 +3914,8 @@ MonoBehaviour:
   crossingTimer: {fileID: 82838156}
   timerZone: {fileID: 1259401641}
   pickupDistance: 5
-  throwDistance: 2.5
-  fallDuration: 0.25
+  throwDistance: 3
+  slipDistance: 2.5
   stayDownDuration: 0.8
 --- !u!54 &1619784551
 Rigidbody:
@@ -3973,7 +4034,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.654, y: 0.1, z: -4.93}
-  m_LocalScale: {x: 0.4, y: 0.01, z: 0.15}
+  m_LocalScale: {x: 0.5, y: 0.02, z: 0.15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4575,6 +4636,43 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1565575746}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1741284554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 1996309220}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1741284560 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 1996309220}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1741284561
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741284554}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1794800721
 GameObject:
   m_ObjectHideFlags: 0
@@ -5210,20 +5308,24 @@ PrefabInstance:
       value: XR Origin (XR Rig)
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -10.47
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.21
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -4.86
       objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503726, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5256,7 +5358,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1741284561}
   m_SourcePrefab: {fileID: 100100000, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
 --- !u!1 &2032774920 stripped
 GameObject:
@@ -5299,7 +5404,6 @@ MonoBehaviour:
   vehicle: {fileID: 0}
   crossingTimer: {fileID: 82838156}
   timerZone: {fileID: 1259401641}
-  fallDuration: 0.25
   stayDownDuration: 0.8
 --- !u!65 &2032774927
 BoxCollider:
@@ -5644,6 +5748,7 @@ AudioSource:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 669911951}
   - {fileID: 1697792023}
   - {fileID: 709552673}
   - {fileID: 281057388}
