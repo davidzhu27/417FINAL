@@ -20,6 +20,11 @@ public class SceneTransitionManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // if (levelCompleteText != null)
+        //     DontDestroyOnLoad(levelCompleteText.transform.root.gameObject);
+
+        Debug.Log($"SceneTransitionManager ready. levelCompleteText = {(levelCompleteText != null ? levelCompleteText.name : "NULL")}");
     }
 
     public void TransitionToScene(string sceneName)
@@ -39,24 +44,21 @@ public class SceneTransitionManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         // 🔴 FADE TO BLACK
-        ScreenFade.Instance.FadeOut(2f);
+        if (ScreenFade.Instance != null)
+            ScreenFade.Instance.FadeOut(2f);
+        else
+            Debug.LogWarning("ScreenFade instance missing during fade-out.");
+
         yield return new WaitForSeconds(2f);
 
         // ⚫ FORCE FULL BLACK (important safety step)
-        ScreenFade.Instance.FadeToColor(Color.black, 0.01f);
+        if (ScreenFade.Instance != null)
+            ScreenFade.Instance.FadeToColor(Color.black, 0.01f);
         yield return null;
+        Debug.Log("Screen should now be fully BLACK");
 
-        // 🔁 LOAD SCENE (now hidden behind black)
-        SceneManager.LoadScene(sceneName);
-
-        // ⏳ wait for scene to fully settle
-        yield return new WaitForEndOfFrame();
-        yield return null;
-
-        // ⚫ ENSURE STILL BLACK AFTER LOAD
-        ScreenFade.Instance.FadeToColor(Color.black, 0.01f);
-
-        // 🟣 SHOW LEVEL COMPLETE ON BLACK SCREEN
+        // 🟣 SHOW LEVEL COMPLETE ON BLACK SCREEN BEFORE LOAD
+        Debug.Log("Attempting to show LEVEL COMPLETE text...");
         if (levelCompleteText != null)
         {
             levelCompleteText.SetActive(true);
@@ -70,12 +72,27 @@ public class SceneTransitionManager : MonoBehaviour
         // ⏱ hold on black screen
         yield return new WaitForSeconds(1.5f);
 
-        // 🟣 HIDE TEXT
+        // 🟣 HIDE TEXT BEFORE SCENE LOAD
         if (levelCompleteText != null)
             levelCompleteText.SetActive(false);
 
+        // 🔁 LOAD SCENE (now hidden behind black)
+        SceneManager.LoadScene(sceneName);
+        Debug.Log("Scene load triggered: " + sceneName);
+
+        // ⏳ wait for scene to fully settle
+        yield return new WaitForEndOfFrame();
+        yield return null;
+
+        // ⚫ ENSURE STILL BLACK AFTER LOAD
+        if (ScreenFade.Instance != null)
+            ScreenFade.Instance.FadeToColor(Color.black, 0.01f);
+        else
+            Debug.LogWarning("ScreenFade instance missing after scene load.");
+
         // 🌅 FADE INTO NEW SCENE VISUALLY
-        ScreenFade.Instance.FadeIn(1.5f);
+        if (ScreenFade.Instance != null)
+            ScreenFade.Instance.FadeIn(1.5f);
 
         isTransitioning = false;
     }
