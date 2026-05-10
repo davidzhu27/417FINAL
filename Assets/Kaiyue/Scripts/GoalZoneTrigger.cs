@@ -88,6 +88,7 @@ public class GoalZoneTrigger : MonoBehaviour
         }
 
         Debug.Log("Loading next scene: " + nextSceneName);
-        SceneManager.LoadScene(nextSceneName);
+        //SceneManager.LoadScene(nextSceneName);
+        SceneTransitionManager.Instance.TransitionToScene(nextSceneName);
     }
 }
