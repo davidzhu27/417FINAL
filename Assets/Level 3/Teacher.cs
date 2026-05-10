@@ -6,6 +6,7 @@ public class Teacher : MonoBehaviour
     public Transform playerCoords;
     public UnityEngine.AI.NavMeshAgent agent;
     public string cutsceneName;
+    public PlayerHUDController hudController;
     private bool killStudent = false;
     private Vector3 current_waypoint;
     private Vector3 initial_waypoint;
@@ -26,6 +27,7 @@ public class Teacher : MonoBehaviour
         initial_waypoint = new Vector3(12.0f, 0.0f, -8.0f);
         agent.SetDestination(initial_waypoint);
         animator.SetTrigger("WalkTrigger");
+        hudController.ChangeHealth(0);
     }
     public void FacePlayer(Camera playerCamera)
     {
