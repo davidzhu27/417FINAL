@@ -6,18 +6,26 @@ using System.Collections;
 
 public class BananaPeelHazard : MonoBehaviour
 {
-    public Transform player;
+    [Header("Player References")]
+    public Transform player;              // XR Origin, used for reset
+    public Transform detectionTarget;     // Main Camera, used for detecting headset position
     public Transform playerStartPoint;
     public Transform holdPoint;
+
+    [Header("UI and Audio")]
     public TMP_Text messageText;
     public SoundManager soundManager;
 
+    [Header("Timer References")]
     public CrossingTimer crossingTimer;
     public CrossingTimerZone timerZone;
 
-    public float pickupDistance = 2f;
+    [Header("Distances")]
+    public float pickupDistance = 5f;
     public float throwDistance = 2.5f;
-    public float slipDistance = 1.2f;
+    public float slipDistance = 3f;
+
+    [Header("Feedback")]
     public float stayDownDuration = 0.8f;
 
     private bool isHeld = false;
@@ -26,6 +34,8 @@ public class BananaPeelHazard : MonoBehaviour
 
     void Start()
     {
+        AutoAssignDetectionTarget();
+
         if (player != null)
         {
             playerOriginalRotation = player.rotation;
@@ -34,14 +44,16 @@ public class BananaPeelHazard : MonoBehaviour
 
     void Update()
     {
-        if (player == null)
+        AutoAssignDetectionTarget();
+
+        if (player == null || detectionTarget == null)
         {
             return;
         }
 
-        float distanceToPlayer = GetHorizontalDistanceToPlayer();
+        float distanceToPlayer = GetHorizontalDistanceToDetectionTarget();
 
-        // Distance-based slip check. This is more reliable for XR Rig / XR Simulator.
+        // Distance-based slip check. More reliable for Meta headset.
         if (!isHeld && !recentlySlipped && distanceToPlayer <= slipDistance)
         {
             StartCoroutine(SlipAndReset());
@@ -69,15 +81,29 @@ public class BananaPeelHazard : MonoBehaviour
         }
     }
 
-    private float GetHorizontalDistanceToPlayer()
+    private void AutoAssignDetectionTarget()
+    {
+        if (detectionTarget != null)
+        {
+            return;
+        }
+
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            detectionTarget = mainCamera.transform;
+        }
+    }
+
+    private float GetHorizontalDistanceToDetectionTarget()
     {
         Vector3 bananaPos = transform.position;
-        Vector3 playerPos = player.position;
+        Vector3 targetPos = detectionTarget.position;
 
         bananaPos.y = 0f;
-        playerPos.y = 0f;
+        targetPos.y = 0f;
 
-        return Vector3.Distance(bananaPos, playerPos);
+        return Vector3.Distance(bananaPos, targetPos);
     }
 
     private bool IsPlayer(Collider other)
@@ -155,46 +181,44 @@ public class BananaPeelHazard : MonoBehaviour
         }
     }
 
-   private void ResetPlayerToStart()
-{
-    if (player == null || playerStartPoint == null)
+    private void ResetPlayerToStart()
     {
-        Debug.LogWarning("Player or PlayerStartPoint is not assigned on BananaPeelHazard.");
-        return;
+        if (player == null || playerStartPoint == null)
+        {
+            Debug.LogWarning("Player or PlayerStartPoint is not assigned on BananaPeelHazard.");
+            return;
+        }
+
+        CharacterController cc = player.GetComponent<CharacterController>();
+        XROrigin xrOrigin = player.GetComponent<XROrigin>();
+
+        if (cc != null)
+        {
+            cc.enabled = false;
+        }
+
+        if (xrOrigin != null)
+        {
+            xrOrigin.MoveCameraToWorldLocation(playerStartPoint.position);
+
+            Vector3 euler = player.rotation.eulerAngles;
+            euler.y = playerStartPoint.rotation.eulerAngles.y;
+            player.rotation = Quaternion.Euler(euler);
+        }
+        else
+        {
+            player.position = playerStartPoint.position;
+            player.rotation = playerStartPoint.rotation;
+        }
+
+        if (cc != null)
+        {
+            cc.enabled = true;
+        }
+
+        Debug.Log("Player reset after slipping. New player position: " + player.position);
     }
 
-    CharacterController cc = player.GetComponent<CharacterController>();
-    XROrigin xrOrigin = player.GetComponent<XROrigin>();
-
-    if (cc != null)
-    {
-        cc.enabled = false;
-    }
-
-    if (xrOrigin != null)
-    {
-        // Move the XR camera/user position to the start point.
-        xrOrigin.MoveCameraToWorldLocation(playerStartPoint.position);
-
-        // Reset facing direction based on PlayerStartPoint.
-        Vector3 euler = player.rotation.eulerAngles;
-        euler.y = playerStartPoint.rotation.eulerAngles.y;
-        player.rotation = Quaternion.Euler(euler);
-    }
-    else
-    {
-        // Fallback for non-XR player.
-        player.position = playerStartPoint.position;
-        player.rotation = playerStartPoint.rotation;
-    }
-
-    if (cc != null)
-    {
-        cc.enabled = true;
-    }
-
-    Debug.Log("Player reset after slipping. New player position: " + player.position);
-}
     IEnumerator SlipAndReset()
     {
         recentlySlipped = true;

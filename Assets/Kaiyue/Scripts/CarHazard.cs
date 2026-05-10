@@ -4,18 +4,22 @@ using System.Collections;
 
 public class CarHazard : MonoBehaviour
 {
-    public Transform player;
+    [Header("Player References")]
+    public Transform player;              // XR Origin, used for reset
+    public Transform detectionTarget;     // Main Camera, used for detecting headset position
     public Transform playerStartPoint;
 
+    [Header("Detection Distances")]
     public float hornDistance = 10f;
     public float hitDistance = 8f;
 
+    [Header("References")]
     public SoundManager soundManager;
     public Vehicle vehicle;
-
     public CrossingTimer crossingTimer;
     public CrossingTimerZone timerZone;
 
+    [Header("Feedback")]
     public float stayDownDuration = 0.8f;
 
     private bool hornPlayed = false;
@@ -55,8 +59,10 @@ public class CarHazard : MonoBehaviour
             playerOriginalRotation = player.rotation;
         }
 
-        Debug.Log("CarHazard setup complete. Player = " + 
+        Debug.Log("CarHazard setup complete. Player = " +
             (player != null ? player.name : "NULL") +
+            ", DetectionTarget = " +
+            (detectionTarget != null ? detectionTarget.name : "NULL") +
             ", StartPoint = " +
             (playerStartPoint != null ? playerStartPoint.name : "NULL"));
     }
@@ -91,6 +97,15 @@ public class CarHazard : MonoBehaviour
             }
         }
 
+        if (detectionTarget == null)
+        {
+            Camera mainCamera = Camera.main;
+            if (mainCamera != null)
+            {
+                detectionTarget = mainCamera.transform;
+            }
+        }
+
         if (playerStartPoint == null)
         {
             GameObject startObj = GameObject.Find("PlayerStartPoint");
@@ -119,7 +134,7 @@ public class CarHazard : MonoBehaviour
 
     void Update()
     {
-        if (player == null || playerStartPoint == null)
+        if (player == null || detectionTarget == null || playerStartPoint == null)
         {
             AutoAssignReferences();
 
@@ -127,6 +142,8 @@ public class CarHazard : MonoBehaviour
             {
                 Debug.LogWarning("CarHazard missing references. Player = " +
                     (player != null ? player.name : "NULL") +
+                    ", DetectionTarget = " +
+                    (detectionTarget != null ? detectionTarget.name : "NULL") +
                     ", StartPoint = " +
                     (playerStartPoint != null ? playerStartPoint.name : "NULL"));
                 nextDebugTime = Time.time + 1f;
@@ -135,7 +152,7 @@ public class CarHazard : MonoBehaviour
             return;
         }
 
-        float distance = GetHorizontalDistanceToPlayer();
+        float distance = GetHorizontalDistanceToDetectionTarget();
 
         if (distance < hornDistance && !hornPlayed)
         {
@@ -165,21 +182,15 @@ public class CarHazard : MonoBehaviour
         }
     }
 
-    private float GetHorizontalDistanceToPlayer()
+    private float GetHorizontalDistanceToDetectionTarget()
     {
         Vector3 carPos = transform.position;
-        Vector3 playerPos = player.position;
-
-        CharacterController cc = player.GetComponent<CharacterController>();
-        if (cc != null)
-        {
-            playerPos = cc.bounds.center;
-        }
+        Vector3 targetPos = detectionTarget.position;
 
         carPos.y = 0f;
-        playerPos.y = 0f;
+        targetPos.y = 0f;
 
-        return Vector3.Distance(carPos, playerPos);
+        return Vector3.Distance(carPos, targetPos);
     }
 
     private bool IsPlayer(Collider other)

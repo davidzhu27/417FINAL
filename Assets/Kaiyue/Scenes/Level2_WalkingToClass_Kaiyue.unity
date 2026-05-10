@@ -1897,6 +1897,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5d47d656169f264a8c470c164175281, type: 3}
+--- !u!4 &829679555 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1767192434, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 1996309220}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &844542801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3907,6 +3912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BananaPeelHazard
   player: {fileID: 1741284560}
+  detectionTarget: {fileID: 829679555}
   playerStartPoint: {fileID: 1525933584}
   holdPoint: {fileID: 1734740272}
   messageText: {fileID: 1667284078}
@@ -3915,7 +3921,7 @@ MonoBehaviour:
   timerZone: {fileID: 1259401641}
   pickupDistance: 5
   throwDistance: 3
-  slipDistance: 2.5
+  slipDistance: 3
   stayDownDuration: 0.8
 --- !u!54 &1619784551
 Rigidbody:
@@ -5397,6 +5403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CarHazard
   player: {fileID: 454185388}
+  detectionTarget: {fileID: 0}
   playerStartPoint: {fileID: 1525933584}
   hornDistance: 4
   hitDistance: 1.5
