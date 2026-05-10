@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.XR.CoreUtils;
 using System.Collections;
 
 public class CarHazard : MonoBehaviour
@@ -6,8 +7,8 @@ public class CarHazard : MonoBehaviour
     public Transform player;
     public Transform playerStartPoint;
 
-    public float hornDistance = 4f;
-    public float hitDistance = 1.5f;
+    public float hornDistance = 10f;
+    public float hitDistance = 8f;
 
     public SoundManager soundManager;
     public Vehicle vehicle;
@@ -15,48 +16,138 @@ public class CarHazard : MonoBehaviour
     public CrossingTimer crossingTimer;
     public CrossingTimerZone timerZone;
 
-    public float fallDuration = 0.25f;
     public float stayDownDuration = 0.8f;
 
     private bool hornPlayed = false;
     private bool recentlyHit = false;
     private Quaternion playerOriginalRotation;
 
+    private float nextDebugTime = 0f;
+
     void Start()
     {
+        AutoAssignReferences();
+
         if (player != null)
         {
             playerOriginalRotation = player.rotation;
         }
-
-        if (vehicle == null)
-        {
-            vehicle = GetComponent<Vehicle>();
-        }
     }
-    public void Setup(Transform n_player, Transform n_playerStartPoint, SoundManager s_manager, CrossingTimer ct, CrossingTimerZone tz) {
+
+    public void Setup(
+        Transform n_player,
+        Transform n_playerStartPoint,
+        SoundManager s_manager,
+        CrossingTimer ct,
+        CrossingTimerZone tz
+    )
+    {
         player = n_player;
         playerStartPoint = n_playerStartPoint;
         soundManager = s_manager;
         crossingTimer = ct;
         timerZone = tz;
-        playerOriginalRotation = player.rotation;
+
+        AutoAssignReferences();
+
+        if (player != null)
+        {
+            playerOriginalRotation = player.rotation;
+        }
+
+        Debug.Log("CarHazard setup complete. Player = " + 
+            (player != null ? player.name : "NULL") +
+            ", StartPoint = " +
+            (playerStartPoint != null ? playerStartPoint.name : "NULL"));
+    }
+
+    private void AutoAssignReferences()
+    {
+        if (vehicle == null)
+        {
+            vehicle = GetComponent<Vehicle>();
+            if (vehicle == null)
+            {
+                vehicle = GetComponentInParent<Vehicle>();
+            }
+            if (vehicle == null)
+            {
+                vehicle = GetComponentInChildren<Vehicle>();
+            }
+        }
+
+        if (player == null)
+        {
+            GameObject playerObj = GameObject.FindWithTag("Player");
+
+            if (playerObj == null)
+            {
+                playerObj = GameObject.Find("XR Origin (XR Rig)");
+            }
+
+            if (playerObj != null)
+            {
+                player = playerObj.transform;
+            }
+        }
+
+        if (playerStartPoint == null)
+        {
+            GameObject startObj = GameObject.Find("PlayerStartPoint");
+
+            if (startObj != null)
+            {
+                playerStartPoint = startObj.transform;
+            }
+        }
+
+        if (soundManager == null)
+        {
+            soundManager = Object.FindFirstObjectByType<SoundManager>();
+        }
+
+        if (crossingTimer == null)
+        {
+            crossingTimer = Object.FindFirstObjectByType<CrossingTimer>();
+        }
+
+        if (timerZone == null)
+        {
+            timerZone = Object.FindFirstObjectByType<CrossingTimerZone>();
+        }
     }
 
     void Update()
     {
         if (player == null || playerStartPoint == null)
         {
+            AutoAssignReferences();
+
+            if (Time.time >= nextDebugTime)
+            {
+                Debug.LogWarning("CarHazard missing references. Player = " +
+                    (player != null ? player.name : "NULL") +
+                    ", StartPoint = " +
+                    (playerStartPoint != null ? playerStartPoint.name : "NULL"));
+                nextDebugTime = Time.time + 1f;
+            }
+
             return;
         }
 
-        float distance = Vector3.Distance(transform.position, player.position);
+        float distance = GetHorizontalDistanceToPlayer();
 
         if (distance < hornDistance && !hornPlayed)
         {
+            Debug.Log("Car horn triggered. Distance: " + distance);
+
             if (soundManager != null)
             {
                 soundManager.PlayHorn();
+            }
+            else
+            {
+                Debug.LogWarning("SoundManager is not assigned on CarHazard.");
             }
 
             hornPlayed = true;
@@ -69,8 +160,91 @@ public class CarHazard : MonoBehaviour
 
         if (distance < hitDistance && !recentlyHit)
         {
+            Debug.Log("Car hit triggered. Distance: " + distance);
             StartCoroutine(HitPlayer());
         }
+    }
+
+    private float GetHorizontalDistanceToPlayer()
+    {
+        Vector3 carPos = transform.position;
+        Vector3 playerPos = player.position;
+
+        CharacterController cc = player.GetComponent<CharacterController>();
+        if (cc != null)
+        {
+            playerPos = cc.bounds.center;
+        }
+
+        carPos.y = 0f;
+        playerPos.y = 0f;
+
+        return Vector3.Distance(carPos, playerPos);
+    }
+
+    private bool IsPlayer(Collider other)
+    {
+        return other.CompareTag("Player") ||
+               other.transform.root.CompareTag("Player") ||
+               other.GetComponentInParent<CharacterController>() != null;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Car touched: " + other.name + " tag: " + other.tag);
+
+        if (IsPlayer(other) && !recentlyHit)
+        {
+            Debug.Log("Car trigger detected player.");
+            StartCoroutine(HitPlayer());
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (IsPlayer(other) && !recentlyHit)
+        {
+            Debug.Log("Car trigger stayed on player.");
+            StartCoroutine(HitPlayer());
+        }
+    }
+
+    private void ResetPlayerToStart()
+    {
+        if (player == null || playerStartPoint == null)
+        {
+            Debug.LogWarning("Player or PlayerStartPoint is not assigned on CarHazard.");
+            return;
+        }
+
+        CharacterController cc = player.GetComponent<CharacterController>();
+        XROrigin xrOrigin = player.GetComponent<XROrigin>();
+
+        if (cc != null)
+        {
+            cc.enabled = false;
+        }
+
+        if (xrOrigin != null)
+        {
+            xrOrigin.MoveCameraToWorldLocation(playerStartPoint.position);
+
+            Vector3 euler = player.rotation.eulerAngles;
+            euler.y = playerStartPoint.rotation.eulerAngles.y;
+            player.rotation = Quaternion.Euler(euler);
+        }
+        else
+        {
+            player.position = playerStartPoint.position;
+            player.rotation = playerStartPoint.rotation;
+        }
+
+        if (cc != null)
+        {
+            cc.enabled = true;
+        }
+
+        Debug.Log("Player reset after car hit. New player position: " + player.position);
     }
 
     IEnumerator HitPlayer()
@@ -88,41 +262,15 @@ public class CarHazard : MonoBehaviour
         {
             soundManager.PlayCrashAndOuch();
         }
-
-        Vector3 startPosition = player.position;
-        Quaternion startRotation = player.rotation;
-
-        Quaternion fallenRotation = Quaternion.Euler(
-            startRotation.eulerAngles.x,
-            startRotation.eulerAngles.y,
-            startRotation.eulerAngles.z + 90f
-        );
-
-        Vector3 fallenPosition = startPosition + new Vector3(0f, -0.7f, 0f);
-
-        float elapsed = 0f;
-
-        while (elapsed < fallDuration)
+        else
         {
-            elapsed += Time.deltaTime;
-            float t = elapsed / fallDuration;
-
-            player.rotation = Quaternion.Lerp(startRotation, fallenRotation, t);
-            player.position = Vector3.Lerp(startPosition, fallenPosition, t);
-
-            yield return null;
+            Debug.LogWarning("SoundManager is not assigned on CarHazard.");
         }
-
-        player.rotation = fallenRotation;
-        player.position = fallenPosition;
 
         yield return new WaitForSeconds(stayDownDuration);
 
-        // Reset player back to sidewalk
-        player.position = playerStartPoint.position;
-        player.rotation = playerOriginalRotation;
+        ResetPlayerToStart();
 
-        // Reset timer so it hides again and can restart when player enters StartTimerZone
         if (crossingTimer != null)
         {
             crossingTimer.ResetTimerHidden();
@@ -133,17 +281,23 @@ public class CarHazard : MonoBehaviour
             timerZone.ResetZone();
         }
 
-        GameObject[] all_cars = GameObject.FindGameObjectsWithTag("Car NPCs");
-        for (int i = 0; i < all_cars.Length; i++) {
-            Destroy(all_cars[i]);
-        }
-        EventManager.Instance.startCars.Invoke();
-        // if (vehicle != null)
-        // {
-        //     vehicle.StartCar();
-        // }
+        GameObject[] allCars = GameObject.FindGameObjectsWithTag("Car NPCs");
 
-        // yield return new WaitForSeconds(0.3f);
-        // recentlyHit = false;
+        for (int i = 0; i < allCars.Length; i++)
+        {
+            Destroy(allCars[i]);
+        }
+
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.startCars.Invoke();
+        }
+        else
+        {
+            Debug.LogWarning("EventManager.Instance is null. Cars were not restarted.");
+        }
+
+        yield return new WaitForSeconds(0.3f);
+        recentlyHit = false;
     }
 }

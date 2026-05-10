@@ -157,6 +157,32 @@ public class CrossingTimer : MonoBehaviour
         }
     }
 
+    private void ResetPlayerToStart()
+    {
+        if (player == null || playerStartPoint == null)
+        {
+            Debug.LogWarning("Player or PlayerStartPoint is not assigned on CrossingTimer.");
+            return;
+        }
+
+        CharacterController cc = player.GetComponent<CharacterController>();
+
+        if (cc != null)
+        {
+            cc.enabled = false;
+        }
+
+        player.position = playerStartPoint.position;
+        player.rotation = playerStartPoint.rotation;
+
+        if (cc != null)
+        {
+            cc.enabled = true;
+        }
+
+        Debug.Log("Player reset to start point.");
+    }
+
     IEnumerator TimeUpReset()
     {
         if (levelCompleted)
@@ -193,10 +219,7 @@ public class CrossingTimer : MonoBehaviour
             yield break;
         }
 
-        if (player != null && playerStartPoint != null)
-        {
-            player.position = playerStartPoint.position;
-        }
+        ResetPlayerToStart();
 
         if (messageText != null)
         {
