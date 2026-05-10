@@ -37,7 +37,7 @@ public class NPCSpawner : MonoBehaviour
         float rand_num;
         if (npc_type.Equals("outdoor", StringComparison.OrdinalIgnoreCase)) rand_num = Random.Range(0.2f, 0.8f);
         else if (isTestTaker) rand_num = Random.Range(0.2f, 0.6f);
-        else rand_num = Random.Range(1.0f, 4.0f);
+        else rand_num = Random.Range(0.2f, 0.8f);
         int spawn_dir = Random.Range(0,4);
         if (spawn_dir == 0) {
             offset = new Vector3(-rand_num,0.0f,0.0f);
