@@ -26,7 +26,7 @@ public abstract class NPC : MonoBehaviour
         }
     }
     public void basicPathFollowing() {
-        agent.updatePosition = false;
+        if (agent != null) agent.updatePosition = false;
         animateNPC();
         if (moving) {
             if (moving_direction == "x" || moving_direction == "-x") {
