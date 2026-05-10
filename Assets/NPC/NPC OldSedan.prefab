@@ -1344,6 +1344,7 @@ GameObject:
   - component: {fileID: 5246768569690715770}
   - component: {fileID: 6291055827277933593}
   - component: {fileID: 7230439522606494518}
+  - component: {fileID: 8856561420674899404}
   m_Layer: 0
   m_Name: OldSedan
   m_TagString: Untagged
@@ -1439,6 +1440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e07ee43716a8a2438b8a76cea781b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Vehicle
+  agent: {fileID: 8856561420674899404}
   frontLeftW: {fileID: 5599787651243205721}
   backLeftW: {fileID: 8684160731317442468}
   frontRightW: {fileID: 4059464550838588960}
@@ -1516,6 +1518,28 @@ MonoBehaviour:
   timerZone: {fileID: 0}
   fallDuration: 0.25
   stayDownDuration: 0.8
+--- !u!195 &8856561420674899404
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3712747525908672729}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 2.8215692
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.1912116
+  m_BaseOffset: 0.5956058
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &3754590952506143458
 GameObject:
   m_ObjectHideFlags: 0
