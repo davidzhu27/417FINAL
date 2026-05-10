@@ -4970,6 +4970,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanMale_Character_FREE (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2749232806715078536, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -5061,6 +5065,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddadcfc83c8954814a40b4718875493a, type: 3}
+--- !u!1001 &1566280957
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1524033470137386225, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: max_spawns
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165709988798382081, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: m_Name
+      value: Indoor NPC Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383364651022061186, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.101
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383364651022061186, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383364651022061186, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.028
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383364651022061186, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383364651022061186, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383364651022061186, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383364651022061186, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383364651022061186, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383364651022061186, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6383364651022061186, guid: 6e33c296401d90442958f31426a1750a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6e33c296401d90442958f31426a1750a, type: 3}
 --- !u!1001 &1671853640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5996,6 +6061,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanMale_Character_FREE (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1782702501690864755, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2749232806715078536, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -6855,3 +6924,4 @@ SceneRoots:
   - {fileID: 1411257431}
   - {fileID: 2121086232}
   - {fileID: 1565557183}
+  - {fileID: 1566280957}
