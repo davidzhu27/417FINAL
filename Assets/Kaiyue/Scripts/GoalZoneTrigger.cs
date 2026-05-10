@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
@@ -23,12 +22,7 @@ public class GoalZoneTrigger : MonoBehaviour
             other.transform.root.CompareTag("Player") ||
             other.GetComponentInParent<CharacterController>() != null;
 
-        if (!isPlayer)
-        {
-            return;
-        }
-
-        if (reachedGoal)
+        if (!isPlayer || reachedGoal)
         {
             return;
         }
@@ -40,6 +34,10 @@ public class GoalZoneTrigger : MonoBehaviour
         if (crossingTimer != null)
         {
             crossingTimer.CompleteLevel();
+        }
+        else
+        {
+            Debug.LogWarning("CrossingTimer is not assigned on GoalZoneTrigger.");
         }
 
         StopAllCoroutines();
@@ -65,7 +63,6 @@ public class GoalZoneTrigger : MonoBehaviour
             messageText.alignment = TextAlignmentOptions.Center;
             messageText.transform.localScale = Vector3.one;
 
-            // Show big Success text in the center.
             rect.anchorMin = new Vector2(0.5f, 0.5f);
             rect.anchorMax = new Vector2(0.5f, 0.5f);
             rect.pivot = new Vector2(0.5f, 0.5f);
@@ -76,7 +73,7 @@ public class GoalZoneTrigger : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Success MessageText is not assigned!");
+            Debug.LogWarning("Success MessageText is not assigned on GoalZoneTrigger.");
         }
 
         yield return new WaitForSeconds(transitionDelay);
@@ -87,7 +84,14 @@ public class GoalZoneTrigger : MonoBehaviour
             yield break;
         }
 
-        Debug.Log("Loading next scene: " + nextSceneName);
-        SceneManager.LoadScene(nextSceneName);
+        if (SceneTransitionManager.Instance != null)
+        {
+            Debug.Log("Transitioning with SceneTransitionManager to: " + nextSceneName);
+            SceneTransitionManager.Instance.TransitionToScene(nextSceneName);
+        }
+        else
+        {
+            Debug.LogError("SceneTransitionManager.Instance is null. Please add SceneTransitionManager to Level 2 scene.");
+        }
     }
 }
