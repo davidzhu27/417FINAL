@@ -1,22 +1,31 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.XR.CoreUtils;
 using TMPro;
 using System.Collections;
 
 public class BananaPeelHazard : MonoBehaviour
 {
-    public Transform player;
+    [Header("Player References")]
+    public Transform player;              // XR Origin, used for reset
+    public Transform detectionTarget;     // Main Camera, used for detecting headset position
     public Transform playerStartPoint;
     public Transform holdPoint;
+
+    [Header("UI and Audio")]
     public TMP_Text messageText;
     public SoundManager soundManager;
 
+    [Header("Timer References")]
     public CrossingTimer crossingTimer;
     public CrossingTimerZone timerZone;
 
-    public float pickupDistance = 2f;
+    [Header("Distances")]
+    public float pickupDistance = 5f;
     public float throwDistance = 2.5f;
-    public float fallDuration = 0.25f;
+    public float slipDistance = 3f;
+
+    [Header("Feedback")]
     public float stayDownDuration = 0.8f;
 
     private bool isHeld = false;
@@ -25,6 +34,8 @@ public class BananaPeelHazard : MonoBehaviour
 
     void Start()
     {
+        AutoAssignDetectionTarget();
+
         if (player != null)
         {
             playerOriginalRotation = player.rotation;
@@ -33,31 +44,73 @@ public class BananaPeelHazard : MonoBehaviour
 
     void Update()
     {
-        if (player == null)
+        AutoAssignDetectionTarget();
+
+        if (player == null || detectionTarget == null)
         {
             return;
         }
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        float distanceToPlayer = GetHorizontalDistanceToDetectionTarget();
 
-        // Press G to pick up banana peel when close
+        // Distance-based slip check. More reliable for Meta headset.
+        if (!isHeld && !recentlySlipped && distanceToPlayer <= slipDistance)
+        {
+            StartCoroutine(SlipAndReset());
+            return;
+        }
+
+        // Press G to pick up banana peel when close.
         if (!isHeld && distanceToPlayer <= pickupDistance && Keyboard.current != null && Keyboard.current.gKey.wasPressedThisFrame)
         {
             PickUpBanana();
         }
 
-        // Press T to throw/place banana peel forward
-        if (isHeld && Keyboard.current != null && Keyboard.current.tKey.wasPressedThisFrame)
+        // Press H to throw/place banana peel forward.
+        // Changed from T because T conflicts with XR Device Simulator.
+        if (isHeld && Keyboard.current != null && Keyboard.current.hKey.wasPressedThisFrame)
         {
             ThrowBanana();
         }
 
-        // Follow hold point while held
+        // Follow hold point while held.
         if (isHeld && holdPoint != null)
         {
             transform.position = holdPoint.position;
             transform.rotation = holdPoint.rotation;
         }
+    }
+
+    private void AutoAssignDetectionTarget()
+    {
+        if (detectionTarget != null)
+        {
+            return;
+        }
+
+        Camera mainCamera = Camera.main;
+        if (mainCamera != null)
+        {
+            detectionTarget = mainCamera.transform;
+        }
+    }
+
+    private float GetHorizontalDistanceToDetectionTarget()
+    {
+        Vector3 bananaPos = transform.position;
+        Vector3 targetPos = detectionTarget.position;
+
+        bananaPos.y = 0f;
+        targetPos.y = 0f;
+
+        return Vector3.Distance(bananaPos, targetPos);
+    }
+
+    private bool IsPlayer(Collider other)
+    {
+        return other.CompareTag("Player") ||
+               other.transform.root.CompareTag("Player") ||
+               other.GetComponentInParent<CharacterController>() != null;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -67,7 +120,9 @@ public class BananaPeelHazard : MonoBehaviour
             return;
         }
 
-        if (other.CompareTag("Player"))
+        Debug.Log("Banana touched by: " + other.name + " tag: " + other.tag);
+
+        if (IsPlayer(other))
         {
             StartCoroutine(SlipAndReset());
         }
@@ -77,7 +132,7 @@ public class BananaPeelHazard : MonoBehaviour
     {
         isHeld = true;
 
-        Debug.Log("Banana peel picked up. Press T to throw/place it.");
+        Debug.Log("Banana peel picked up. Press H to throw/place it.");
 
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
@@ -126,6 +181,44 @@ public class BananaPeelHazard : MonoBehaviour
         }
     }
 
+    private void ResetPlayerToStart()
+    {
+        if (player == null || playerStartPoint == null)
+        {
+            Debug.LogWarning("Player or PlayerStartPoint is not assigned on BananaPeelHazard.");
+            return;
+        }
+
+        CharacterController cc = player.GetComponent<CharacterController>();
+        XROrigin xrOrigin = player.GetComponent<XROrigin>();
+
+        if (cc != null)
+        {
+            cc.enabled = false;
+        }
+
+        if (xrOrigin != null)
+        {
+            xrOrigin.MoveCameraToWorldLocation(playerStartPoint.position);
+
+            Vector3 euler = player.rotation.eulerAngles;
+            euler.y = playerStartPoint.rotation.eulerAngles.y;
+            player.rotation = Quaternion.Euler(euler);
+        }
+        else
+        {
+            player.position = playerStartPoint.position;
+            player.rotation = playerStartPoint.rotation;
+        }
+
+        if (cc != null)
+        {
+            cc.enabled = true;
+        }
+
+        Debug.Log("Player reset after slipping. New player position: " + player.position);
+    }
+
     IEnumerator SlipAndReset()
     {
         recentlySlipped = true;
@@ -136,6 +229,10 @@ public class BananaPeelHazard : MonoBehaviour
         {
             soundManager.PlayCrashAndOuch();
         }
+        else
+        {
+            Debug.LogWarning("SoundManager is not assigned on BananaPeelHazard.");
+        }
 
         if (messageText != null)
         {
@@ -145,34 +242,9 @@ public class BananaPeelHazard : MonoBehaviour
             messageText.gameObject.SetActive(true);
         }
 
-        Vector3 startPosition = player.position;
-        Quaternion startRotation = player.rotation;
-
-        Quaternion fallenRotation = Quaternion.Euler(
-            startRotation.eulerAngles.x,
-            startRotation.eulerAngles.y,
-            startRotation.eulerAngles.z + 90f
-        );
-
-        Vector3 fallenPosition = startPosition + new Vector3(0f, -0.7f, 0f);
-
-        float elapsed = 0f;
-
-        while (elapsed < fallDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / fallDuration;
-
-            player.rotation = Quaternion.Lerp(startRotation, fallenRotation, t);
-            player.position = Vector3.Lerp(startPosition, fallenPosition, t);
-
-            yield return null;
-        }
-
-        player.rotation = fallenRotation;
-        player.position = fallenPosition;
-
         yield return new WaitForSeconds(stayDownDuration);
+
+        ResetPlayerToStart();
 
         if (messageText != null)
         {
@@ -180,13 +252,6 @@ public class BananaPeelHazard : MonoBehaviour
             messageText.transform.localScale = Vector3.one;
         }
 
-        if (player != null && playerStartPoint != null)
-        {
-            player.position = playerStartPoint.position;
-            player.rotation = playerOriginalRotation;
-        }
-
-        // Reset timer so it hides again and can restart when player enters StartTimerZone
         if (crossingTimer != null)
         {
             crossingTimer.ResetTimerHidden();

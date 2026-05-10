@@ -503,6 +503,7 @@ GameObject:
   - component: {fileID: 6041147170320706634}
   - component: {fileID: 3256093977388196463}
   - component: {fileID: 2966444926575337161}
+  - component: {fileID: 6908475770275773343}
   m_Layer: 0
   m_Name: Van
   m_TagString: Untagged
@@ -598,6 +599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e07ee43716a8a2438b8a76cea781b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Vehicle
+  agent: {fileID: 6908475770275773343}
   frontLeftW: {fileID: 7858755171604392423}
   backLeftW: {fileID: 5737128063355424774}
   frontRightW: {fileID: 176595974616538740}
@@ -675,6 +677,28 @@ MonoBehaviour:
   timerZone: {fileID: 0}
   fallDuration: 0.25
   stayDownDuration: 0.8
+--- !u!195 &6908475770275773343
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7216669117267821847}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 2.8775194
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.8310009
+  m_BaseOffset: 0.91550046
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &7858755171604392423
 GameObject:
   m_ObjectHideFlags: 0

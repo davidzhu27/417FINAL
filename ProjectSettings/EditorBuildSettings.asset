@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/DeathCutScenes.unity
     guid: 3db2428335adde44e9f0cae8855c41e9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Mohammad.unity
     guid: ea9f7d3d038e62449814afa9727f1863
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lunch.unity
     guid: 2f378188d2c0d48ebb2bc736409a62e0
   - enabled: 1

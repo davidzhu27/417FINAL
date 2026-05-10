@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 5818809493229166466}
   - component: {fileID: 5765603777602053401}
   - component: {fileID: 177198908597517938}
+  - component: {fileID: 3434921354368438969}
   m_Layer: 0
   m_Name: Truck
   m_TagString: Untagged
@@ -465,6 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e07ee43716a8a2438b8a76cea781b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Vehicle
+  agent: {fileID: 3434921354368438969}
   frontLeftW: {fileID: 4866451820185399193}
   backLeftW: {fileID: 1498507223468239034}
   frontRightW: {fileID: 8395921032901402282}
@@ -521,6 +523,28 @@ MonoBehaviour:
   timerZone: {fileID: 0}
   fallDuration: 0.25
   stayDownDuration: 0.8
+--- !u!195 &3434921354368438969
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4447836344236633814}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 4.1731524
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 3.9047523
+  m_BaseOffset: 1.9523761
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4866451820185399193
 GameObject:
   m_ObjectHideFlags: 0
