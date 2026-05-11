@@ -2565,6 +2565,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneTransitionManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3784957990470143314, guid: 6b4649e98111e45c8bca5a28521dad8e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4480549997629838257, guid: 6b4649e98111e45c8bca5a28521dad8e, type: 3}
       propertyPath: levelCompleteText
       value: 
@@ -3040,6 +3044,7 @@ GameObject:
   - component: {fileID: 699804310}
   - component: {fileID: 699804309}
   - component: {fileID: 699804314}
+  - component: {fileID: 699804315}
   m_Layer: 0
   m_Name: GoalZone
   m_TagString: Untagged
@@ -3174,7 +3179,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 699804308}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38e50398b9d484b08a3eae8eaccff951, type: 3}
   m_Name: 
@@ -3183,6 +3188,19 @@ MonoBehaviour:
   crossingTimer: {fileID: 82838156}
   nextSceneName: NolanSchoolScene
   transitionDelay: 1.2
+--- !u!114 &699804315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699804308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b92df272628af7a44afacb338410b8c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneGoalTrigger
+  nextSceneName: NolanSchoolScene
 --- !u!1001 &700858695
 PrefabInstance:
   m_ObjectHideFlags: 0
