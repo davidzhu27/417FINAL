@@ -11,6 +11,7 @@ public class BananaPeelHazard : MonoBehaviour
     public Transform detectionTarget;     // Main Camera, used for detecting headset position
     public Transform playerStartPoint;
     public Transform holdPoint;
+    public PlayerHUDController hudController;
 
     [Header("UI and Audio")]
     public TMP_Text messageText;
@@ -241,7 +242,7 @@ public class BananaPeelHazard : MonoBehaviour
             messageText.fontSize = 72;
             messageText.gameObject.SetActive(true);
         }
-
+        hudController.ChangeHealth(-100);
         yield return new WaitForSeconds(stayDownDuration);
 
         ResetPlayerToStart();
