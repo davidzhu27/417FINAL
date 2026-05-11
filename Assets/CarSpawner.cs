@@ -7,6 +7,7 @@ public class CarSpawner : MonoBehaviour
     [SerializeField] private float spawn_interval = 5.0f;
     [SerializeField] private float car_lifetime = 4.0f;
     [SerializeField] private GameObject[] car_prefabs;
+    public PlayerHUDController hudController;
     public Transform player;
     public Transform playerStartPoint;
     public SoundManager soundManager;
@@ -47,7 +48,7 @@ public class CarSpawner : MonoBehaviour
         Debug.Log(start_pos.z);
         Vehicle veh = car.GetComponentInChildren<Vehicle>();
         veh.setup(desired_move_direction, car_lifetime);
-        veh.carHazard.Setup(player, playerStartPoint, soundManager, crossingTimer, timerZone);
+        veh.carHazard.Setup(player, playerStartPoint, soundManager, crossingTimer, timerZone, hudController);
     }
 
     // Update is called once per frame
@@ -60,7 +61,7 @@ public class CarSpawner : MonoBehaviour
             GameObject car = Instantiate(car_prefabs[ind], start_pos, init_rot);
             Vehicle veh = car.GetComponentInChildren<Vehicle>();
             veh.setup(desired_move_direction, car_lifetime);
-            veh.carHazard.Setup(player, playerStartPoint, soundManager, crossingTimer, timerZone);
+            veh.carHazard.Setup(player, playerStartPoint, soundManager, crossingTimer, timerZone, hudController);
         }
     }
     public void crosswalkEnabled() {

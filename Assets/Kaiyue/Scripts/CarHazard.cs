@@ -18,6 +18,7 @@ public class CarHazard : MonoBehaviour
     public Vehicle vehicle;
     public CrossingTimer crossingTimer;
     public CrossingTimerZone timerZone;
+    public PlayerHUDController hudController;
 
     [Header("Feedback")]
     public float stayDownDuration = 0.8f;
@@ -43,7 +44,8 @@ public class CarHazard : MonoBehaviour
         Transform n_playerStartPoint,
         SoundManager s_manager,
         CrossingTimer ct,
-        CrossingTimerZone tz
+        CrossingTimerZone tz,
+        PlayerHUDController hc
     )
     {
         player = n_player;
@@ -51,6 +53,7 @@ public class CarHazard : MonoBehaviour
         soundManager = s_manager;
         crossingTimer = ct;
         timerZone = tz;
+        hudController = hc;
 
         AutoAssignReferences();
 
@@ -277,6 +280,8 @@ public class CarHazard : MonoBehaviour
         {
             Debug.LogWarning("SoundManager is not assigned on CarHazard.");
         }
+
+        hudController.ChangeHealth(-100);
 
         yield return new WaitForSeconds(stayDownDuration);
 
